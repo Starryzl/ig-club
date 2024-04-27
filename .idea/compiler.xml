@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ig-club-domain" />
+        <module name="ig-club-application-mq" />
+        <module name="ig-club-subject-api" />
+        <module name="ig-club-starter" />
+        <module name="ig-club-common" />
+        <module name="ig-club-application-job" />
+        <module name="ig-club-infra" />
+        <module name="Igclub" />
+        <module name="ig-club-application-controller" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
