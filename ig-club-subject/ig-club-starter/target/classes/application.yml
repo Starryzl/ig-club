@@ -4,8 +4,9 @@ spring:
   datasource:
     username: root
     password: OMWDyUIVa3bVT+TckFgu+z11NDfG4qbUka6D3rozu6jXSESQrA30OcVbW791LjAq0YYY0YUuEPOy8kcIpZEAVQ==
+    #3fe14f9e59c2f695
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://localhost/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 20
