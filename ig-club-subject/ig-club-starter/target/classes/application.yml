@@ -3,10 +3,10 @@ server:
 spring:
   datasource:
     username: root
-    password: OMWDyUIVa3bVT+TckFgu+z11NDfG4qbUka6D3rozu6jXSESQrA30OcVbW791LjAq0YYY0YUuEPOy8kcIpZEAVQ==
+    password: hPfdipTRgpGeGa7M4eWF2yo2IbvHj8luC8t6FjCOZy8+kFdCZww6nB0Czy+LmdBDxXdgGjB5owa3hYJu/Su+Xw==
     #3fe14f9e59c2f695
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://8.130.43.45:3306/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 20
@@ -30,7 +30,7 @@ spring:
           enabled: true
 
 
-publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANSPiu9JbfbiY+HDZvqrrq9zLPmYGqTRQvw3Z67wpNR87x1J9hKE4w/iZF/iU6V5zlASTdkrrAFS5UvI1gWwCmcCAwEAAQ==
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJh8YOZ3Ufn57HQRHE9kL94BczGTdSKuNbb7Y7xAeA0OjN+3g9vWhsHU0utU9xhxBaG3sPRreAcDmHMHGCRL/W8CAwEAAQ==
 logging:
   config: classpath:log4j2-spring.xml
 #mybatis-plus:

@@ -18,5 +18,8 @@
         <module name="ig-club-application-controller" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Ig-club" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

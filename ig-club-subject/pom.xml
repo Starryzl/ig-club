@@ -2,16 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>Igclub</artifactId>
-        <groupId>com.tencent</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.tencent</groupId>
     <artifactId>ig-club-subject</artifactId>
     <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
     <description>无知社区-题目领域服务</description>
+    <modelVersion>4.0.0</modelVersion>
+
     <modules>
         <module>ig-club-subject-api</module>
         <module>ig-club-application</module>
@@ -21,18 +19,13 @@
         <module>ig-club-infra</module>
     </modules>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
             <version>2.4.2</version>
             <type>pom</type>
-
+            <scope>import</scope>
         </dependency>
     </dependencies>
 
@@ -52,15 +45,6 @@
         </repository>
     </repositories>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.4.2</version>
-            </plugin>
-        </plugins>
-    </build>
 
 
 </project>
