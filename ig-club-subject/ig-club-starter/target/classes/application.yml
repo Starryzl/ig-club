@@ -6,7 +6,7 @@ spring:
     password: hPfdipTRgpGeGa7M4eWF2yo2IbvHj8luC8t6FjCOZy8+kFdCZww6nB0Czy+LmdBDxXdgGjB5owa3hYJu/Su+Xw==
     #3fe14f9e59c2f695
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.43.45:3306/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://8.130.43.45:3306/jclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 20
