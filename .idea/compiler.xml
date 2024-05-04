@@ -16,6 +16,7 @@
         <module name="ig-club-infra" />
         <module name="Igclub" />
         <module name="ig-club-application-controller" />
+        <module name="ig-club-oss" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
