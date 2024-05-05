@@ -1,4 +1,4 @@
-package com.tencent.oss.service;
+package com.tencent.oss.adapter;
 
 import com.tencent.oss.entity.FileInfo;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,7 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.util.List;
 
-public interface StorageService {
+/**
+ * 文件存储适配器
+ */
+public interface StorageAdapter {
     /**
      * 创建bucket桶
      */

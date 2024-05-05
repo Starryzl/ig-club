@@ -1,18 +1,16 @@
-package com.tencent.oss.service.impl;
+package com.tencent.oss.adapter;
 
 import com.tencent.oss.entity.FileInfo;
-import com.tencent.oss.service.StorageService;
+import com.tencent.oss.adapter.StorageAdapter;
 import com.tencent.oss.util.MinioUtil;
 import lombok.SneakyThrows;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.util.List;
 
-@Service("minioStorageServiceImpl")
-public class MinioStorageServiceImpl implements StorageService {
+public class MinioStorageAdapter implements StorageAdapter {
 
     @Resource
     private MinioUtil minioUtil;

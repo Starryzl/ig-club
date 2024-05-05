@@ -1,11 +1,11 @@
 package com.tencent.oss.config;
 
-import com.tencent.oss.service.StorageService;
+import com.tencent.oss.adapter.StorageAdapter;
+import com.tencent.oss.adapter.AliStorageAdapter;
+import com.tencent.oss.adapter.MinioStorageAdapter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.Resource;
 
 @Configuration
 public class StorageConfig {
@@ -13,17 +13,14 @@ public class StorageConfig {
     @Value("${storage.service.type}")
     private String storageType;
 
-    @Resource
-    private StorageService aliStorageServiceImpl;
-    @Resource
-    private StorageService minioStorageServiceImpl;
+
 
     @Bean
-    public StorageService storageService(){
+    public StorageAdapter storageService(){
         if("minio".equals(storageType)){
-            return minioStorageServiceImpl;
+            return new MinioStorageAdapter();
         }else if("aliyun".equals(storageType)){
-            return aliStorageServiceImpl;
+            return new AliStorageAdapter();
         }else {
             throw new IllegalArgumentException("未找到对应文件存储处理器");
         }

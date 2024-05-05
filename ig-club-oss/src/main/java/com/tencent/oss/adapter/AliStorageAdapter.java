@@ -1,16 +1,14 @@
-package com.tencent.oss.service.impl;
+package com.tencent.oss.adapter;
 
 import com.tencent.oss.entity.FileInfo;
-import com.tencent.oss.service.StorageService;
-import org.springframework.stereotype.Service;
+import com.tencent.oss.adapter.StorageAdapter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-@Service("aliStorageServiceImpl")
-public class AliStorageServiceImpl implements StorageService {
+public class AliStorageAdapter implements StorageAdapter {
     @Override
     public void createBucket(String bucket) {
 

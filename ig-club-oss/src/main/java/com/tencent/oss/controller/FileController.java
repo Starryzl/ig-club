@@ -1,7 +1,6 @@
 package com.tencent.oss.controller;
 
 import com.tencent.oss.service.FileService;
-import com.tencent.oss.service.StorageService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
