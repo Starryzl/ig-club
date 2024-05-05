@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ig-club-oss
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 8.130.43.45:8848
+        prefix: ${spring.application.name}
+        group: DEFAULT_GROUP
+        namespace:
+        fil-+e-extension: yaml
