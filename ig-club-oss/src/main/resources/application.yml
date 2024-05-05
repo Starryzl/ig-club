@@ -4,3 +4,6 @@ minio:
   url: http://8.130.43.45:9000
   accessKey: minioadmin
   secretKey: minioadmin
+storage:
+  service:
+    type: minio

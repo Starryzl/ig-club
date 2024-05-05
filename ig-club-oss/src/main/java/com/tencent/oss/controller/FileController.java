@@ -1,7 +1,7 @@
 package com.tencent.oss.controller;
 
+import com.tencent.oss.service.FileService;
 import com.tencent.oss.service.StorageService;
-import com.tencent.oss.util.MinioUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,11 +12,11 @@ import java.util.List;
 public class FileController {
 
     @Resource
-    private StorageService minioStorageServiceImpl;
+    private FileService fileService;
 
     @RequestMapping("/testGetAllBuckets")
     public String testGetAllBuckets() throws Exception {
-        List<String> allBucket = minioStorageServiceImpl.getAllBucket();
+        List<String> allBucket = fileService.getAllBucket();
         return allBucket.get(0);
     }
 }
