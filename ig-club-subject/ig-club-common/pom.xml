@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.16</version>
         </dependency>
       <!--注意mapstruct，需在lombok后，mapstruct直接转化get,set前提是有lombok生成-->
         <dependency>
