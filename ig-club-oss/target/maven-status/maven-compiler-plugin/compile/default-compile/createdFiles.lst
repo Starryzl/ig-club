@@ -1,0 +1,5 @@
+com\tencent\oss\config\MinioConfig.class
+com\tencent\oss\entity\FileInfo.class
+com\tencent\oss\controller\FileController.class
+com\tencent\oss\OssApplication.class
+com\tencent\oss\util\MinioUtil.class
