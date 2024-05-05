@@ -7,3 +7,15 @@ minio:
 storage:
   service:
     type: minio
+nacos:
+  config:
+    secret-key: nacos
+    access-key: nacos
+    data-id: ig-club-oss
+    group: DEFAULT_GROUP
+    type: yaml
+    server-addr: http://8.130.43.45:8848/
+    auto-refresh: true
+    remote-first: true
+    bootstrap:
+      enable: true

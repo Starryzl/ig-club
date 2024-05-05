@@ -1,5 +1,6 @@
 package com.tencent.oss.config;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.tencent.oss.adapter.StorageAdapter;
 import com.tencent.oss.adapter.AliStorageAdapter;
 import com.tencent.oss.adapter.MinioStorageAdapter;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StorageConfig {
 
-    @Value("${storage.service.type}")
+    @NacosValue(value = "${storage.service.type}", autoRefreshed=true)
     private String storageType;
 
 
