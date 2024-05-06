@@ -7,22 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ig-club-auth-application-job" />
         <module name="ig-club-infra" />
         <module name="ig-club-auth-domain" />
-        <module name="ig-club-auth-application" />
         <module name="ig-club-application-controller" />
         <module name="ig-club-domain" />
         <module name="ig-club-application-mq" />
+        <module name="ig-club-auth-api" />
         <module name="ig-club-subject-api" />
         <module name="ig-club-starter" />
         <module name="ig-club-common" />
         <module name="ig-club-application-job" />
         <module name="ig-club-auth-infra" />
         <module name="ig-club-auth-starter" />
+        <module name="ig-club-auth-application-mq" />
         <module name="ig-club-auth-common" />
         <module name="Igclub" />
         <module name="ig-club-oss" />
         <module name="ig-club-gateway" />
+        <module name="ig-club-auth-application-controller" />
       </profile>
     </annotationProcessing>
   </component>

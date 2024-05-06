@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ig-club-auth</artifactId>
+        <artifactId>ig-club-auth-application</artifactId>
         <groupId>com.tencent</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ig-club-auth-application</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>ig-club-auth-application-controller</module>
-        <module>ig-club-auth-application-job</module>
-        <module>ig-club-auth-application-mq</module>
-    </modules>
+    <artifactId>ig-club-auth-application-job</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
