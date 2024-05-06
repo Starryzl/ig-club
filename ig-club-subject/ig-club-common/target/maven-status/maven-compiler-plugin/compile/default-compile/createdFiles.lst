@@ -1,0 +1,7 @@
+com\tencent\subject\common\entity\PageInfo.class
+com\tencent\subject\common\enums\IsDeletedFlagEnum.class
+com\tencent\subject\common\enums\SubjectInfoTypeEnum.class
+com\tencent\subject\common\entity\Result.class
+com\tencent\subject\common\enums\CategoryTypeEnum.class
+com\tencent\subject\common\entity\PageResult.class
+com\tencent\subject\common\enums\ResultCodeEnum.class

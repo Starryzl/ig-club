@@ -1,0 +1,16 @@
+com\tencent\subject\application\convert\SubjectAnswerDTOConverterImpl.class
+com\tencent\subject\application\dto\SubjectCategoryDTO.class
+com\tencent\subject\application\convert\SubjectInfoDTOConverter.class
+com\tencent\subject\application\dto\SubjectInfoDTO.class
+com\tencent\subject\application\controller\SubjectCategoryController.class
+com\tencent\subject\application\controller\SubjectController.class
+com\tencent\subject\application\convert\SubjectCategoryDTOConverterImpl.class
+com\tencent\subject\application\dto\SubjectLabelDTO.class
+com\tencent\subject\application\dto\SubjectAnswerDTO.class
+com\tencent\subject\application\convert\SubjectAnswerDTOConverter.class
+com\tencent\subject\application\convert\SubjectLabelDTOConverter.class
+com\tencent\subject\application\config\GlobalConfig.class
+com\tencent\subject\application\convert\SubjectCategoryDTOConverter.class
+com\tencent\subject\application\controller\SubjectLabelController.class
+com\tencent\subject\application\convert\SubjectInfoDTOConverterImpl.class
+com\tencent\subject\application\convert\SubjectLabelDTOConverterImpl.class
