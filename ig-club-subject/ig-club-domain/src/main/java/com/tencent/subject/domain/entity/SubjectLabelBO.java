@@ -30,7 +30,5 @@ public class SubjectLabelBO implements Serializable {
      */
     private Long categoryId;
 
-
-
 }
 

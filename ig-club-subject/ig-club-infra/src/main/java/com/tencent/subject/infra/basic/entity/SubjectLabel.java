@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 @Data
 public class SubjectLabel implements Serializable {
-    private static final long serialVersionUID = 352051714682871108L;
     /**
      * 主键
      */
@@ -22,6 +21,10 @@ public class SubjectLabel implements Serializable {
      * 标签分类
      */
     private String labelName;
+    /**
+     * 分类id
+     */
+    private Long categoryId;
     /**
      * 排序
      */

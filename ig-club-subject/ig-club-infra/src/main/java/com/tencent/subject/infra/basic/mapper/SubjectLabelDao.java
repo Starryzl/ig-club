@@ -28,7 +28,7 @@ public interface SubjectLabelDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<SubjectLabel> queryAllByLimit(SubjectLabel subjectLabel);
+    List<SubjectLabel> queryByCondition(SubjectLabel subjectLabel);
 
     /**
      * 统计总行数

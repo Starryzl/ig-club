@@ -19,8 +19,5 @@
         <module name="ig-club-oss" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Ig-club" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
