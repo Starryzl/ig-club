@@ -12,9 +12,13 @@
     <artifactId>ig-club-application-controller</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
 
     <dependencies>
         <dependency>
@@ -22,7 +26,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.4.2</version>
         </dependency>
-
         <dependency>
             <groupId>com.tencent</groupId>
             <artifactId>ig-club-infra</artifactId>
@@ -34,4 +37,5 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
 </project>
