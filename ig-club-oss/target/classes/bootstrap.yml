@@ -10,4 +10,7 @@ spring:
         prefix: ${spring.application.name}
         group: DEFAULT_GROUP
         namespace:
-        fil-+e-extension: yaml
+        file-extension: yaml
+      discovery:
+        enabled: true
+        server-addr: 8.130.43.45:8848
