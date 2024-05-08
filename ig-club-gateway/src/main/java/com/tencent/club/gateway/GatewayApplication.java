@@ -1,4 +1,4 @@
-package com.tencent.club;
+package com.tencent.club.gateway;
 
 
 import org.springframework.boot.SpringApplication;
