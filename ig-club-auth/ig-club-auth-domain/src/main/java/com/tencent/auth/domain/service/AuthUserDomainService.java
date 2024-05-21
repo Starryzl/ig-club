@@ -13,4 +13,13 @@ public interface AuthUserDomainService {
      * @return
      */
     Boolean register(AuthUserBO authUserBO);
+
+    /**
+     * 更新用户信息
+     * @param authUserBO
+     * @return
+     */
+    Boolean update(AuthUserBO authUserBO);
+
+    Boolean delete(AuthUserBO authUserBO);
 }

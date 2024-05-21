@@ -149,6 +149,7 @@
         values (#{userName}, #{nickName}, #{email}, #{phone}, #{password}, #{sex}, #{avatar}, #{status}, #{introduce}, #{extJson}, #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime}, #{isDeleted})
     </insert>
 
+
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into auth_user(user_name, nick_name, email, phone, password, sex, avatar, status, introduce, ext_json, created_by, created_time, update_by, update_time, is_deleted)
         values

@@ -49,9 +49,8 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 实例对象
      */
     @Override
-    public AuthUser update(AuthUser authUser) {
-        this.authUserDao.update(authUser);
-        return this.queryById(authUser.getId());
+    public Integer update(AuthUser authUser) {
+        return this.authUserDao.update(authUser);
     }
 
     /**
