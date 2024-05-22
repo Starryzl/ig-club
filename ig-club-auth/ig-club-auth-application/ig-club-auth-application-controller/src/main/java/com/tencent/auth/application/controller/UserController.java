@@ -10,6 +10,7 @@ import com.tencent.auth.application.dto.AuthUserDTO;
 import com.tencent.auth.common.entity.Result;
 import com.tencent.auth.domain.entity.AuthUserBO;
 import com.tencent.auth.domain.service.AuthUserDomainService;
+import com.tencent.auth.infra.basic.service.AuthUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,8 @@ public class UserController {
 
     @Resource
     private AuthUserDomainService authUserDomainService;
+
+
     /**
      * 用户注册
      * @param authUserDTO
