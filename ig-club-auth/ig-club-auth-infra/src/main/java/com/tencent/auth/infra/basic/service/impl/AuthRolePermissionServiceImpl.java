@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色权限关联表(AuthRolePermission)表服务实现类
@@ -42,6 +43,11 @@ public class AuthRolePermissionServiceImpl implements AuthRolePermissionService 
     public AuthRolePermission insert(AuthRolePermission authRolePermission) {
         this.authRolePermissionDao.insert(authRolePermission);
         return authRolePermission;
+    }
+
+    @Override
+    public int batchInsert(List<AuthRolePermission> authRolePermissionList) {
+        return this.authRolePermissionDao.insertBatch(authRolePermissionList);
     }
 
     /**

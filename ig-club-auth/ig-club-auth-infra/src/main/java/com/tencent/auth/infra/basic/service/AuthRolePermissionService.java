@@ -5,6 +5,8 @@ import com.tencent.auth.infra.basic.entity.AuthRolePermission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * 角色权限关联表(AuthRolePermission)表服务接口
  *
@@ -28,6 +30,9 @@ public interface AuthRolePermissionService {
      * @return 实例对象
      */
     AuthRolePermission insert(AuthRolePermission authRolePermission);
+
+
+    int batchInsert(List<AuthRolePermission> authRolePermissionList);
 
     /**
      * 修改数据
