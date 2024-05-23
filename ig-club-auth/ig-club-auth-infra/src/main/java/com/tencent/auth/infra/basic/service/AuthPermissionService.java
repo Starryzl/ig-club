@@ -20,14 +20,6 @@ public interface AuthPermissionService {
      */
     AuthPermission queryById(Long id);
 
-    /**
-     * 分页查询
-     *
-     * @param authPermission 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    Page<AuthPermission> queryByPage(AuthPermission authPermission, PageRequest pageRequest);
 
     /**
      * 新增数据
@@ -35,7 +27,7 @@ public interface AuthPermissionService {
      * @param authPermission 实例对象
      * @return 实例对象
      */
-    AuthPermission insert(AuthPermission authPermission);
+    int insert(AuthPermission authPermission);
 
     /**
      * 修改数据
@@ -43,7 +35,7 @@ public interface AuthPermissionService {
      * @param authPermission 实例对象
      * @return 实例对象
      */
-    AuthPermission update(AuthPermission authPermission);
+    int update(AuthPermission authPermission);
 
     /**
      * 通过主键删除数据

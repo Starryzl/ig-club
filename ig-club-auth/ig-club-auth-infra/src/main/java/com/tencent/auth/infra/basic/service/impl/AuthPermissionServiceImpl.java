@@ -32,18 +32,6 @@ public class AuthPermissionServiceImpl implements AuthPermissionService {
         return this.authPermissionDao.queryById(id);
     }
 
-    /**
-     * 分页查询
-     *
-     * @param authPermission 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @Override
-    public Page<AuthPermission> queryByPage(AuthPermission authPermission, PageRequest pageRequest) {
-        long total = this.authPermissionDao.count(authPermission);
-        return new PageImpl<>(this.authPermissionDao.queryAllByLimit(authPermission, pageRequest), pageRequest, total);
-    }
 
     /**
      * 新增数据
@@ -52,9 +40,8 @@ public class AuthPermissionServiceImpl implements AuthPermissionService {
      * @return 实例对象
      */
     @Override
-    public AuthPermission insert(AuthPermission authPermission) {
-        this.authPermissionDao.insert(authPermission);
-        return authPermission;
+    public int insert(AuthPermission authPermission) {
+        return this.authPermissionDao.insert(authPermission);
     }
 
     /**
@@ -64,9 +51,8 @@ public class AuthPermissionServiceImpl implements AuthPermissionService {
      * @return 实例对象
      */
     @Override
-    public AuthPermission update(AuthPermission authPermission) {
-        this.authPermissionDao.update(authPermission);
-        return this.queryById(authPermission.getId());
+    public int update(AuthPermission authPermission) {
+        return this.authPermissionDao.update(authPermission);
     }
 
     /**

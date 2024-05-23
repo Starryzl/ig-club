@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (AuthRole)表服务实现类
@@ -69,5 +70,10 @@ public class AuthRoleServiceImpl implements AuthRoleService {
     @Override
     public AuthRole queryByCondition(AuthRole authRole) {
         return authRoleDao.queryAllByLimit(authRole);
+    }
+
+    @Override
+    public List<AuthRole> queryByRoleList(List<Long> roleIdList) {
+        return null;
     }
 }

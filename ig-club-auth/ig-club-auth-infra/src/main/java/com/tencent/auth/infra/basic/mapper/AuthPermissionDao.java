@@ -23,12 +23,9 @@ public interface AuthPermissionDao {
 
     /**
      * 查询指定行数据
-     *
-     * @param authPermission 查询条件
-     * @param pageable         分页对象
-     * @return 对象列表
+
      */
-    List<AuthPermission> queryAllByLimit(AuthPermission authPermission, @Param("pageable") Pageable pageable);
+    List<AuthPermission> queryAllByLimit(AuthPermission authPermission);
 
     /**
      * 统计总行数
