@@ -86,6 +86,7 @@
         </where>
     </select>
 
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into auth_role_permission(role_id, permission_id, created_by, created_time, update_by, update_time, is_deleted)

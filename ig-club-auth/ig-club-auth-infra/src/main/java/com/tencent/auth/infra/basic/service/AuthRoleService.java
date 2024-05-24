@@ -1,8 +1,6 @@
 package com.tencent.auth.infra.basic.service;
 
 import com.tencent.auth.infra.basic.entity.AuthRole;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -41,8 +39,6 @@ public interface AuthRoleService {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
-     * @return 是否成功
      */
     boolean deleteById(Long id);
 

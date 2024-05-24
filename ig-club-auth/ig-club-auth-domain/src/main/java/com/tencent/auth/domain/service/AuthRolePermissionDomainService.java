@@ -13,4 +13,5 @@ public interface AuthRolePermissionDomainService {
 
     Boolean add(AuthRolePermissionBO authRolePermissionBO);
 
+
 }

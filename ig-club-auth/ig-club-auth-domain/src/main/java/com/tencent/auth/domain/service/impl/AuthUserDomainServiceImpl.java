@@ -2,18 +2,16 @@ package com.tencent.auth.domain.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.tencent.auth.common.enums.AuthUserStatusEnum;
 import com.tencent.auth.common.enums.IsDeletedFlagEnum;
 import com.tencent.auth.domain.constants.AuthConstant;
 import com.tencent.auth.domain.convert.AuthUserBOConverter;
 import com.tencent.auth.domain.entity.AuthUserBO;
+import com.tencent.auth.domain.redis.RedisUtil;
 import com.tencent.auth.domain.service.AuthUserDomainService;
-import com.tencent.auth.infra.basic.entity.AuthRole;
-import com.tencent.auth.infra.basic.entity.AuthUser;
-import com.tencent.auth.infra.basic.entity.AuthUserRole;
-import com.tencent.auth.infra.basic.service.AuthRoleService;
-import com.tencent.auth.infra.basic.service.AuthUserRoleService;
-import com.tencent.auth.infra.basic.service.AuthUserService;
+import com.tencent.auth.infra.basic.entity.*;
+import com.tencent.auth.infra.basic.service.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,9 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,11 +33,21 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
     @Resource
     private AuthUserRoleService authUserRoleService;
     @Resource
+    private AuthPermissionService authPermissionService;
+    @Resource
+    private AuthRolePermissionService authRolePermissionService;
+    @Resource
     private AuthRoleService authRoleService;
 
     private String salt = "ig";
 
-    private TransactionTemplate transactionTemplate;
+    @Resource
+    private RedisUtil redisUtil;
+
+    private String authPermissionPrefix = "auth.permission";
+
+    private String authRolePrefix = "auth.role";
+
 
     @Override
     @SneakyThrows
@@ -76,17 +87,23 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         authUserRole.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
         authUserRoleService.insert(authUserRole);
 
- /*       //建立一个初步的角色的关联
-        AuthRole authRole = new AuthRole();
-        authRole.setRoleKey(AuthConstant.NORMAL_USER);
-        AuthRole roleResult = authRoleService.queryByCondition(authRole);
-        Long roleId = roleResult.getId();
-        Long userId = authUser.getId();
-        AuthUserRole authUserRole = new AuthUserRole();
-        authUserRole.setUserId(userId);
-        authUserRole.setRoleId(roleId);
-        authUserRole.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
-        authUserRoleService.insert(authUserRole);*/
+        String roleKey = redisUtil.buildKey(authRolePrefix, authUser.getUserName());
+        List<AuthRole> roleList = new LinkedList<>();
+        roleList.add(authRole);
+        redisUtil.set(roleKey,new Gson().toJson(roleList));
+
+        AuthRolePermission authRolePermission = new AuthRolePermission();
+        authRolePermission.setRoleId(roleId);
+        List<AuthRolePermission> rolePermissionList = authRolePermissionService.
+                queryByCondition(authRolePermission);
+
+        List<Long> permissionIdList = rolePermissionList.stream()
+                .map(AuthRolePermission::getPermissionId).collect(Collectors.toList());
+        //根据roleId查权限
+        List<AuthPermission> permissionList = authPermissionService.queryByRoleList(permissionIdList);
+        String permissionKey = redisUtil.buildKey(authPermissionPrefix, authUser.getUserName());
+        redisUtil.set(permissionKey,new Gson().toJson(permissionList));
+
         return count>0;
     }
 

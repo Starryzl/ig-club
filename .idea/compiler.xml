@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ig-club-wx" />
         <module name="ig-club-auth-application-job" />
         <module name="ig-club-infra" />
         <module name="ig-club-auth-domain" />

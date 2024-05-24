@@ -1,5 +1,6 @@
 package com.tencent.auth.infra.basic.mapper;
 
+import com.tencent.auth.infra.basic.entity.AuthRole;
 import com.tencent.auth.infra.basic.entity.AuthRolePermission;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;

@@ -15,8 +15,14 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="AuthRoleMap">
-        select
-          id, role_name, role_key, created_by, created_time, update_by, update_time, is_deleted
+        select id,
+               role_name,
+               role_key,
+               created_by,
+               created_time,
+               update_by,
+               update_time,
+               is_deleted
         from auth_role
         where id = #{id}
     </select>
@@ -53,6 +59,7 @@
             </if>
         </where>
     </select>
+
 
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
@@ -105,7 +112,8 @@
         insert into auth_role(role_name, role_key, created_by, created_time, update_by, update_time, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.roleName}, #{entity.roleKey}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
+            (#{entity.roleName}, #{entity.roleKey}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
     </insert>
 
@@ -113,7 +121,8 @@
         insert into auth_role(role_name, role_key, created_by, created_time, update_by, update_time, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.roleName}, #{entity.roleKey}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
+            (#{entity.roleName}, #{entity.roleKey}, #{entity.createdBy}, #{entity.createdTime}, #{entity.updateBy},
+            #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
         on duplicate key update
         role_name = values(role_name),
@@ -156,8 +165,11 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from auth_role where id = #{id}
+        delete
+        from auth_role
+        where id = #{id}
     </delete>
+
 
 </mapper>
 

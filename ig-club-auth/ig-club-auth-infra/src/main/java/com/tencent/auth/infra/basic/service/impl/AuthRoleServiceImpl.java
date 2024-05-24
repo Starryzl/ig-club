@@ -4,9 +4,6 @@ import com.tencent.auth.infra.basic.entity.AuthRole;
 import com.tencent.auth.infra.basic.mapper.AuthRoleDao;
 import com.tencent.auth.infra.basic.service.AuthRoleService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -72,8 +69,9 @@ public class AuthRoleServiceImpl implements AuthRoleService {
         return authRoleDao.queryAllByLimit(authRole);
     }
 
+
     @Override
     public List<AuthRole> queryByRoleList(List<Long> roleIdList) {
-        return null;
+        return authRoleDao.queryByRoleList(roleIdList);
     }
 }

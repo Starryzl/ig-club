@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/ig-club-oss/pom.xml" />
         <option value="$PROJECT_DIR$/ig-club-auth/pom.xml" />
         <option value="$PROJECT_DIR$/ig-club-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ig-club-wx/pom.xml" />
       </list>
     </option>
   </component>
