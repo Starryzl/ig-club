@@ -1,17 +1,25 @@
 package com.tencent.wx.controller;
 
+import com.tencent.wx.handler.WxChatMsgFactory;
+import com.tencent.wx.handler.WxChatMsgHandler;
 import com.tencent.wx.utils.MessageUtil;
 import com.tencent.wx.utils.SHA1;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @Slf4j
 public class CallBackController {
 
     private static final String token = "afasfsdafa";
+
+    @Resource
+    private WxChatMsgFactory wxChatMsgFactory;
 
     @RequestMapping("/test")
     public String test(){
@@ -44,16 +52,33 @@ public class CallBackController {
             @RequestParam(value = "msg_signature", required = false) String msgSignature) {
         log.info("接收到微信消息：requestBody：{}", requestBody);
         Map<String, String> messageMap = MessageUtil.parseXml(requestBody);
-        String fromUserName = messageMap.get("FromUserName");
-        String toUserName = messageMap.get("ToUserName");
-        String content = "<xml>\n" +
-                "  <ToUserName><![CDATA["+fromUserName+"]]></ToUserName>\n" +
-                "  <FromUserName><![CDATA["+toUserName+"]]></FromUserName>\n" +
-                "  <CreateTime>12345678</CreateTime>\n" +
-                "  <MsgType><![CDATA[text]]></MsgType>\n" +
-                "  <Content><![CDATA[你好，我叫码上有识]]></Content>\n" +
-                "</xml>";
-        return content;
+        String msgType = messageMap.get("MsgType");
+        String event = messageMap.get("Event") == null ? "" : messageMap.get("Event");
+        log.info("msgType：{}，event：{}",msgType,event);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(msgType);
+        if (!StringUtils.isEmpty(event)) {
+            sb.append(".");
+            sb.append(event);
+        }
+        String msgTypeKey = sb.toString();
+        WxChatMsgHandler wxChatMsgHandler = wxChatMsgFactory.getHandlerByMsgType(msgTypeKey);
+        if (Objects.isNull(wxChatMsgHandler)) {
+            return "unknown";
+        }
+        String replyContent = wxChatMsgHandler.dealMsg(messageMap);
+        log.info("replyContent:{}", replyContent);
+        return replyContent;
     }
 
+
 }
+
+/*    String content = "<xml>\n" +
+            "  <ToUserName><![CDATA["+fromUserName+"]]></ToUserName>\n" +
+            "  <FromUserName><![CDATA["+toUserName+"]]></FromUserName>\n" +
+            "  <CreateTime>12345678</CreateTime>\n" +
+            "  <MsgType><![CDATA[text]]></MsgType>\n" +
+            "  <Content><![CDATA[你好，我叫码上有识]]></Content>\n" +
+            "</xml>";*/
