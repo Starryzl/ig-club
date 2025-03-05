@@ -1,12 +1,11 @@
 server:
-  port: 3000
+  port: 3010
 spring:
   datasource:
     username: root
-    password: hPfdipTRgpGeGa7M4eWF2yo2IbvHj8luC8t6FjCOZy8+kFdCZww6nB0Czy+LmdBDxXdgGjB5owa3hYJu/Su+Xw==
-    #3fe14f9e59c2f695
+    password: c6Q8aKelMS5yqTei/9KJa2WYyv4pQZ+a79gbYVmgkHva1QgfybboB7INWeG21kPq0eHDdU2B8ce1RMdSvhuSeA==
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.43.45:3306/jclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://101.43.165.160:3306/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 20
@@ -30,6 +29,6 @@ spring:
           enabled: true
 
 
-publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJh8YOZ3Ufn57HQRHE9kL94BczGTdSKuNbb7Y7xAeA0OjN+3g9vWhsHU0utU9xhxBaG3sPRreAcDmHMHGCRL/W8CAwEAAQ==
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIb04SqefAbD8BfI85E2mkraSzvsBlFyngU5Bf/5ibOAPQ3MOA6u6Y6crNfo5yw5SXMgkiSevAubPaNCSw/5MikCAwEAAQ==
 logging:
   config: classpath:log4j2-spring.xml

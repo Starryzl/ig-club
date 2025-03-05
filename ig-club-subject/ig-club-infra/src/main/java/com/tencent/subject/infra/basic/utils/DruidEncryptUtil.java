@@ -40,7 +40,7 @@ public class DruidEncryptUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String encrypt = encrypt("3fe14f9e59c2f695");
+        String encrypt = encrypt("zzz123");
         System.out.println("encrypt: "+encrypt);
     }
 

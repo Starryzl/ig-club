@@ -1,12 +1,12 @@
 server:
-  port: 3001
+  port: 3011
 spring:
   datasource:
     username: root
-    password: hPfdipTRgpGeGa7M4eWF2yo2IbvHj8luC8t6FjCOZy8+kFdCZww6nB0Czy+LmdBDxXdgGjB5owa3hYJu/Su+Xw==
+    password: c6Q8aKelMS5yqTei/9KJa2WYyv4pQZ+a79gbYVmgkHva1QgfybboB7INWeG21kPq0eHDdU2B8ce1RMdSvhuSeA==
     #3fe14f9e59c2f695
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.43.45:3306/jclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://101.43.165.160:3306/igclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 20
@@ -32,7 +32,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 1
     # Redis服务器地址
-    host: 8.130.43.45
+    host: 101.43.165.160
     # Redis服务器连接端口
     port: 6379
     # Redis服务器连接密码（默认为空）
@@ -49,7 +49,7 @@ spring:
         max-idle: 10
         # 连接池中的最小空闲连接
         min-idle: 0
-publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJh8YOZ3Ufn57HQRHE9kL94BczGTdSKuNbb7Y7xAeA0OjN+3g9vWhsHU0utU9xhxBaG3sPRreAcDmHMHGCRL/W8CAwEAAQ==
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIb04SqefAbD8BfI85E2mkraSzvsBlFyngU5Bf/5ibOAPQ3MOA6u6Y6crNfo5yw5SXMgkiSevAubPaNCSw/5MikCAwEAAQ==
 logging:
   config: classpath:log4j2-spring.xml
 
@@ -66,6 +66,7 @@ sa-token:
   # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
   is-share: true
   # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
-  token-style: uuid
+  token-style: random-32
   # 是否输出操作日志
   is-log: true
+  token-prefix: igclub

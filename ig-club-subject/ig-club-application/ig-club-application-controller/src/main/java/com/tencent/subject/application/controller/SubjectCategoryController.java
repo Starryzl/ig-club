@@ -7,6 +7,8 @@ import com.tencent.subject.application.dto.SubjectCategoryDTO;
 import com.tencent.subject.common.entity.Result;
 import com.tencent.subject.domain.entity.SubjectCategoryBO;
 import com.tencent.subject.domain.service.SubjectCategoryDomainService;
+import com.tencent.subject.infra.basic.entity.SubjectCategory;
+import com.tencent.subject.infra.basic.service.SubjectCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,9 @@ public class SubjectCategoryController {
     @Resource
     private SubjectCategoryDomainService subjectCategoryDomainService;
 
+    /**
+     * 新增分类
+     */
     @PostMapping("/add")
     public Result<Boolean> add(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
         try {
@@ -45,6 +50,9 @@ public class SubjectCategoryController {
 
     }
 
+    /**
+     * 查询岗位大类
+     */
     @PostMapping("/queryPrimaryCategory")
     public Result<List<SubjectCategoryDTO>> queryPrimaryCategory(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
         try {
@@ -62,6 +70,9 @@ public class SubjectCategoryController {
         }
     }
 
+    /**
+     * 根据分类id查二级分类
+     */
     @PostMapping("/queryCategoryByPrimary")
     public Result<List<SubjectCategoryDTO>> queryCategoryByPrimary(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
         try {
@@ -127,5 +138,7 @@ public class SubjectCategoryController {
             return Result.fail("删除分类失败");
         }
     }
+
+
 
 }

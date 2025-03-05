@@ -13,10 +13,7 @@ import com.tencent.auth.domain.service.AuthUserDomainService;
 import com.tencent.auth.infra.basic.service.AuthUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -31,6 +28,7 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @param authUserDTO
      * @return
      */
@@ -77,7 +75,7 @@ public class UserController {
 
     /**
      * 删除用户信息
-     \
+     * \
      */
     @RequestMapping("delete")
     public Result<Boolean> delete(@RequestBody AuthUserDTO authUserDTO) {
@@ -123,17 +121,17 @@ public class UserController {
     }
 
 
-
     // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
-    public SaResult doLogin(String username, String password) {
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if("zhang".equals(username) && "123456".equals(password)) {
-            StpUtil.login("ig");
-            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-            return SaResult.data(tokenInfo);
+    public Result<SaTokenInfo> doLogin(@RequestParam("validCode") String validCode) {
+        try {
+            Preconditions.checkArgument(!StringUtils.isBlank(validCode), "验证码不能为空");
+            return Result.ok(authUserDomainService.doLogin(validCode));
+        } catch (Exception e) {
+            log.error("UserController.doLogin.error:{}", e.getMessage(), e);
+            return Result.fail("用户登陆失败");
         }
-        return SaResult.error("登录失败");
+
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
