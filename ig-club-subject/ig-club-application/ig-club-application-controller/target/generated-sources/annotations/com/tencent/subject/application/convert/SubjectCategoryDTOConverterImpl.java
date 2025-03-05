@@ -8,27 +8,10 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-04T12:43:59+0800",
+    date = "2025-03-05T21:07:44+0800",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_241 (Oracle Corporation)"
 )
 public class SubjectCategoryDTOConverterImpl implements SubjectCategoryDTOConverter {
-
-    @Override
-    public SubjectCategoryBO convertBoToCategory(SubjectCategoryDTO subjectCategoryDTO) {
-        if ( subjectCategoryDTO == null ) {
-            return null;
-        }
-
-        SubjectCategoryBO subjectCategoryBO = new SubjectCategoryBO();
-
-        subjectCategoryBO.setId( subjectCategoryDTO.getId() );
-        subjectCategoryBO.setCategoryName( subjectCategoryDTO.getCategoryName() );
-        subjectCategoryBO.setCategoryType( subjectCategoryDTO.getCategoryType() );
-        subjectCategoryBO.setImageUrl( subjectCategoryDTO.getImageUrl() );
-        subjectCategoryBO.setParentId( subjectCategoryDTO.getParentId() );
-
-        return subjectCategoryBO;
-    }
 
     @Override
     public List<SubjectCategoryDTO> convertBoToCategoryDTOList(List<SubjectCategoryBO> subjectCategoryDTO) {
@@ -38,7 +21,7 @@ public class SubjectCategoryDTOConverterImpl implements SubjectCategoryDTOConver
 
         List<SubjectCategoryDTO> list = new ArrayList<SubjectCategoryDTO>( subjectCategoryDTO.size() );
         for ( SubjectCategoryBO subjectCategoryBO : subjectCategoryDTO ) {
-            list.add( subjectCategoryBOToSubjectCategoryDTO( subjectCategoryBO ) );
+            list.add( convertBoToCategoryDTO( subjectCategoryBO ) );
         }
 
         return list;
@@ -61,7 +44,8 @@ public class SubjectCategoryDTOConverterImpl implements SubjectCategoryDTOConver
         return subjectCategoryBO;
     }
 
-    protected SubjectCategoryDTO subjectCategoryBOToSubjectCategoryDTO(SubjectCategoryBO subjectCategoryBO) {
+    @Override
+    public SubjectCategoryDTO convertBoToCategoryDTO(SubjectCategoryBO subjectCategoryBO) {
         if ( subjectCategoryBO == null ) {
             return null;
         }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 题目分类(SubjectCategory)实体类
@@ -33,6 +34,11 @@ public class SubjectCategoryBO implements Serializable {
      * 父级id
      */
     private Long parentId;
+
+    /**
+     * 标签bo数量
+     */
+    private List<SubjectLabelBO> labelBOList;
 
 
 
