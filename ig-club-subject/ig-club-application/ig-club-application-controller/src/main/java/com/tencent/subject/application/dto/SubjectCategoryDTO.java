@@ -35,9 +35,16 @@ public class SubjectCategoryDTO implements Serializable {
     private Long parentId;
 
     /**
+     * 数量
+     */
+    private Integer count;
+
+    /**
      * 标签信息
      */
     private List<SubjectLabelDTO> labelDTOList;
+
+
 
 
 

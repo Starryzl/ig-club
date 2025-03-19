@@ -59,6 +59,10 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
             log.info("SubjectCategoryController.queryPrimaryCategory.boList:{}",
                     JSON.toJSONString(boList));
         }
+        boList.forEach(bo -> {
+            Integer subjectCount = subjectCategoryService.querySubjectCount(bo.getId());
+            bo.setCount(subjectCount);
+        });
         return boList;
     }
 

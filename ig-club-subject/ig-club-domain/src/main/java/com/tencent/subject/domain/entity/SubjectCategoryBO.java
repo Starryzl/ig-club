@@ -36,6 +36,11 @@ public class SubjectCategoryBO implements Serializable {
     private Long parentId;
 
     /**
+     * 数量
+     */
+    private Integer count;
+
+    /**
      * 标签bo数量
      */
     private List<SubjectLabelBO> labelBOList;
