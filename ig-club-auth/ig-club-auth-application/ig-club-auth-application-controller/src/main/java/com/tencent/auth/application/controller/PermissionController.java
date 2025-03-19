@@ -78,8 +78,7 @@ public class PermissionController {
     }
 
     /**
-     * 删除角色
-     \
+     * 删除权限
      */
     @RequestMapping("delete")
     public Result<Boolean> delete(@RequestBody AuthPermissionDTO authPermissionDTO) {
@@ -99,5 +98,22 @@ public class PermissionController {
 
     }
 
+    /**
+     * 查询用户权限
+     */
+    @RequestMapping("getPermission")
+    public Result<Boolean> getPermission(String userName) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("PermissionController.getPermission.userName:{}", userName);
+            }
+            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户id不能为空");
+            return Result.ok(authPermissionDomainService.getPermission(userName));
+
+        } catch (Exception e) {
+            log.error("PermissionController.getPermission.error:{}", e.getMessage(), e);
+            return Result.fail("查询用户权限信息失败");
+        }
+    }
 
 }

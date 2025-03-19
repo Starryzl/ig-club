@@ -55,4 +55,6 @@ public interface StorageAdapter {
      * @throws Exception
      */
     void deleteObjectName(String bucket, String objectName);
+
+    String getUrl(String bucket, String objectName);
 }

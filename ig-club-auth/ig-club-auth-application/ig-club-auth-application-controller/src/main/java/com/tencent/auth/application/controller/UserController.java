@@ -72,6 +72,43 @@ public class UserController {
             return Result.fail("更新用户信息失败");
         }
     }
+    /**
+     * 获取用户信息
+     */
+    @RequestMapping("getUserInfo")
+    public Result<Boolean> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getUserName()),"用户名不能为空");
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO userInfo = authUserDomainService.getUserInfo(authUserBO);
+            return Result.ok(authUserDomainService.update(authUserBO));
+
+        } catch (Exception e) {
+            log.error("UserController.getUserInfo.error:{}", e.getMessage(), e);
+            return Result.fail("获取用户信息失败");
+        }
+    }
+
+    /**
+     * 用户退出
+     */
+    @RequestMapping("logOut")
+    public Result logOut(@RequestParam String userName) {
+        try {
+            log.info("UserController.logOut.userName:{}", userName);
+            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户名不能为空");
+            StpUtil.logout(userName);
+            return Result.ok();
+        } catch (Exception e) {
+            log.error("UserController.logOut.error:{}", e.getMessage(), e);
+            return Result.fail("用户登出失败");
+        }
+    }
+
+
 
     /**
      * 删除用户信息
@@ -121,17 +158,15 @@ public class UserController {
     }
 
 
-    // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
     public Result<SaTokenInfo> doLogin(@RequestParam("validCode") String validCode) {
         try {
-            Preconditions.checkArgument(!StringUtils.isBlank(validCode), "验证码不能为空");
+            Preconditions.checkArgument(!StringUtils.isBlank(validCode),"验证码不能为空!");
             return Result.ok(authUserDomainService.doLogin(validCode));
-        } catch (Exception e) {
+        }catch (Exception e){
             log.error("UserController.doLogin.error:{}", e.getMessage(), e);
-            return Result.fail("用户登陆失败");
+            return Result.fail("用户登录失败");
         }
-
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
