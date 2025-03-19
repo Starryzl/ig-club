@@ -70,4 +70,9 @@ public class AuthUserServiceImpl implements AuthUserService {
         return this.authUserDao.queryAllByLimit(authUser);
     }
 
+    @Override
+    public Integer updateByUserName(AuthUser authUser) {
+        return this.authUserDao.updateByUserName(authUser);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.tencent.oss.controller;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
+import com.tencent.oss.entity.Result;
 import com.tencent.oss.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +32,9 @@ public class FileController {
     }
 
     @RequestMapping("/upload")
-    public String upload(MultipartFile uploadFile, String bucket, String objectName) throws Exception {
-          objectName = objectName+"/"+uploadFile.getName();
-        return fileService.uploadFile(uploadFile, bucket, objectName);
+    public Result upload(MultipartFile uploadFile, String bucket, String objectName) throws Exception {
+        String url = fileService.uploadFile(uploadFile, bucket, objectName);
+        return Result.ok(url);
     }
 
 

@@ -36,6 +36,7 @@ public class FileService {
 
     public String uploadFile(MultipartFile uploadFile, String bucket, String objectName) {
         storageAdapter.uploadFile(uploadFile,bucket,objectName);
+        objectName = objectName + "/" + uploadFile.getOriginalFilename();
         return storageAdapter.getUrl(bucket, objectName);
     }
 }
