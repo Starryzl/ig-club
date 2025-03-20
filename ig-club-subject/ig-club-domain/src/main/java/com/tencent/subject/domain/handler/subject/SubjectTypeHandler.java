@@ -21,7 +21,7 @@ public interface SubjectTypeHandler {
     void add(SubjectInfoBO subjectInfoBO);
 
     /**
-     * 实际的题目的插入
+     * 实际的题目的查询
      * @param
      */
     SubjectOptionBO query(long subjectId);

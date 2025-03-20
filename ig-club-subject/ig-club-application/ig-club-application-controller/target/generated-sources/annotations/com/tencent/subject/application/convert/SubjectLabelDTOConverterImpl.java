@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-06T18:52:13+0800",
+    date = "2025-03-20T09:32:13+0800",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_241 (Oracle Corporation)"
 )
 public class SubjectLabelDTOConverterImpl implements SubjectLabelDTOConverter {

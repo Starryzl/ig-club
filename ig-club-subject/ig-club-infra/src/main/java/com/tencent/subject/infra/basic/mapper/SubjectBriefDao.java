@@ -24,7 +24,6 @@ public interface SubjectBriefDao {
      * 查询指定行数据
      *
      * @param subjectBrief 查询条件
-     * @param pageable         分页对象
      * @return 对象列表
      */
     SubjectBrief queryAllByLimit(SubjectBrief subjectBrief);

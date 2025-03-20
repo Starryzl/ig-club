@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 标签controller++++++
+ * 标签controller
  *
  */
 
@@ -44,7 +44,6 @@ public class SubjectLabelController {
             if (log.isInfoEnabled()) {
                 log.info("SubjectLabelController.add.dto:{}", JSON.toJSONString(subjectLabelDTO));
             }
-
             Preconditions.checkArgument(!StringUtils.isBlank(subjectLabelDTO.getLabelName()), "标签名称不能为空");
             SubjectLabelBO subjectLabelBO = SubjectLabelDTOConverter.INSTANCE.convertDtoToLabelBO(subjectLabelDTO);
             Boolean result = subjectLabelDomainService.add(subjectLabelBO);
@@ -67,7 +66,6 @@ public class SubjectLabelController {
             if (log.isInfoEnabled()) {
                 log.info("SubjectLabelController.update.dto:{}", JSON.toJSONString(subjectLabelDTO));
             }
-
             Preconditions.checkNotNull(subjectLabelDTO.getId(), "标签id不能为空");
             SubjectLabelBO subjectLabelBO = SubjectLabelDTOConverter.INSTANCE.convertDtoToLabelBO(subjectLabelDTO);
             Boolean result = subjectLabelDomainService.update(subjectLabelBO);
@@ -99,7 +97,6 @@ public class SubjectLabelController {
             log.error("SubjectLabelController.delete.error:{}", e.getMessage(), e);
             return Result.fail("删除标签失败");
         }
-
     }
 
     /**
@@ -114,7 +111,6 @@ public class SubjectLabelController {
                 log.info("SubjectLabelController.queryLabelByCategoryId.dto:{}", 
                         JSON.toJSONString(subjectLabelDTO));
             }
-
             Preconditions.checkNotNull(subjectLabelDTO.getCategoryId(), "分类id不能为空");
             SubjectLabelBO subjectLabelBO = SubjectLabelDTOConverter.INSTANCE.convertDtoToLabelBO(subjectLabelDTO);
             List<SubjectLabelBO> resultList = subjectLabelDomainService.queryLabelByCategoryId(subjectLabelBO);
@@ -124,6 +120,5 @@ public class SubjectLabelController {
             log.error("SubjectLabelController.queryLabelByCategoryId.error:{}", e.getMessage(), e);
             return Result.fail("查询分类下标签失败");
         }
-
     }
 }

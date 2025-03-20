@@ -41,13 +41,11 @@ public class SubjectController {
             if (log.isInfoEnabled()) {
                 log.info("SubjectController.add.dto:{}", JSON.toJSONString(subjectInfoDTO));
             }
-
             Preconditions.checkArgument(!StringUtils.isBlank(subjectInfoDTO.getSubjectName()),
                     "题目名称不能为空");
             Preconditions.checkNotNull(subjectInfoDTO.getSubjectDifficult(), "题目难度不能为空");
             Preconditions.checkNotNull(subjectInfoDTO.getSubjectType(), "题目类型不能为空");
             Preconditions.checkNotNull(subjectInfoDTO.getSubjectScore(), "题目分数不能为空");
-
             Preconditions.checkArgument(!CollectionUtils.isEmpty(subjectInfoDTO.getCategoryIds()),
                     "分类id不能为空");
             Preconditions.checkArgument(!CollectionUtils.isEmpty(subjectInfoDTO.getLabelIds()),
@@ -79,18 +77,15 @@ public class SubjectController {
             }
             Preconditions.checkNotNull(subjectInfoDTO.getCategoryId(), "分类id不能为空");
             Preconditions.checkNotNull(subjectInfoDTO.getLabelId(), "标签id不能为空");
-
             SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOToBO(subjectInfoDTO);
             subjectInfoBO.setPageNo(subjectInfoDTO.getPageNo());
             subjectInfoBO.setPageSize(subjectInfoDTO.getPageSize());
-
             PageResult<SubjectInfoBO> boPageResult = subjectinfoDomainService.getSubjectPage(subjectInfoBO);
             return Result.ok(boPageResult);
         } catch (Exception e) {
             log.error("SubjectController.getSubjectPage.error:{}", e.getMessage(), e);
             return Result.fail("分页查询题目失败");
         }
-
     }
 
     /**
@@ -105,9 +100,7 @@ public class SubjectController {
                 log.info("SubjectController.querySubjectInfo.dto:{}", JSON.toJSONString(subjectInfoDTO));
             }
             Preconditions.checkNotNull(subjectInfoDTO.getId(), "题目id不能为空");
-
             SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOToBO(subjectInfoDTO);
-
             SubjectInfoBO boResult = subjectinfoDomainService.querySubjectInfo(subjectInfoBO);
             SubjectInfoDTO dto = SubjectInfoDTOConverter.INSTANCE.convertBOToDTO(boResult);
             return Result.ok(dto);
@@ -115,6 +108,5 @@ public class SubjectController {
             log.error("SubjectController.querySubjectInfo.error:{}", e.getMessage(), e);
             return Result.fail("查询题目详情失败");
         }
-
     }
 }

@@ -47,7 +47,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         }
 
         //假设我们都写在主流程里面
-        //判断type，单选的调用单选的ser+vice,多选的调用多选的
+        //判断type，单选的调用单选的service,多选的调用多选的
         //会有一大堆的if
 
         //可以使用 工厂+策略的形式
@@ -90,6 +90,15 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
       List<SubjectInfo> subjectInfoList = subjectInfoService.queryPage(subjectInfo,subjectInfoBO.getCategoryId(),
               subjectInfoBO.getLabelId(),start,subjectInfoBO.getPageSize());
         List<SubjectInfoBO> subjectInfoBOS = SubjectInfoConverter.INSTANCE.convertListInfoToBO(subjectInfoList);
+        subjectInfoBOS.forEach(info->{
+            SubjectMapping subjectMapping = new SubjectMapping();
+            subjectMapping.setSubjectId(info.getId());
+            List<SubjectMapping> mappingList = subjectMappingService.queryLabelId(subjectMapping);
+            List<Long> labelIds = mappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
+            List<SubjectLabel> labelList = subjectLabelService.batchQueryById(labelIds);
+            List<String> labelNames = labelList.stream().map(SubjectLabel::getLabelName).collect(Collectors.toList());
+            info.setLabelName(labelNames);
+        });
         pageResult.setRecords(subjectInfoBOS);
         pageResult.setTotal(count);
 
@@ -102,7 +111,6 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         SubjectTypeHandler handler = subjectTypeHandlerFactory.getHandler(subjectInfo.getSubjectType());
         SubjectOptionBO optionBO = handler.query(subjectInfo.getId());
         SubjectInfoBO bo = SubjectInfoConverter.INSTANCE.convertOptionAndInfoToBo(optionBO,subjectInfo);
-
         SubjectMapping subjectMapping = new SubjectMapping();
         subjectMapping.setSubjectId(subjectInfo.getId());
         subjectMapping.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
