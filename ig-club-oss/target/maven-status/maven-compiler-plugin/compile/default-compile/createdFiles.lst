@@ -1,10 +1,10 @@
 com\tencent\oss\adapter\StorageAdapter.class
-com\tencent\oss\config\MinioConfig.class
 com\tencent\oss\entity\FileInfo.class
-com\tencent\oss\adapter\MinioStorageAdapter.class
 com\tencent\oss\service\FileService.class
 com\tencent\oss\util\MinioUtil.class
-com\tencent\oss\config\StorageConfig.class
 com\tencent\oss\adapter\AliStorageAdapter.class
 com\tencent\oss\controller\FileController.class
+com\tencent\oss\config\MinioConfig.class
+com\tencent\oss\adapter\MinioStorageAdapter.class
+com\tencent\oss\config\StorageConfig.class
 com\tencent\oss\OssApplication.class

@@ -1,9 +1,11 @@
+E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\entity\ResultCodeEnum.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\config\StorageConfig.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\adapter\AliStorageAdapter.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\service\FileService.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\OssApplication.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\config\MinioConfig.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\adapter\MinioStorageAdapter.java
+E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\entity\Result.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\controller\FileController.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\entity\FileInfo.java
 E:\Project\Java\Igclub\Ig-club\ig-club-oss\src\main\java\com\tencent\oss\adapter\StorageAdapter.java
