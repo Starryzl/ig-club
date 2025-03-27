@@ -1,4 +1,4 @@
-package com.tencent.auth.context;
+package com.tencent.subject.application.context;
 
 import java.util.Map;
 import java.util.Objects;
@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 登录上下文对象
- *
  */
 public class LoginContextHolder {
 
@@ -39,6 +38,5 @@ public class LoginContextHolder {
         }
         return map;
     }
-
 
 }

@@ -165,7 +165,7 @@ public class UserController {
         }
     }
 
-    // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
+    // 查询登录状态
     @RequestMapping("isLogin")
     public String isLogin() {
         return "当前会话是否登录：" + StpUtil.isLogin();

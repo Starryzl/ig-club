@@ -6,6 +6,7 @@ import com.tencent.subject.application.convert.SubjectCategoryDTOConverter;
 import com.tencent.subject.application.convert.SubjectLabelDTOConverter;
 import com.tencent.subject.application.dto.SubjectCategoryDTO;
 import com.tencent.subject.application.dto.SubjectLabelDTO;
+import com.tencent.subject.application.util.LoginUtil;
 import com.tencent.subject.common.entity.Result;
 import com.tencent.subject.domain.entity.SubjectCategoryBO;
 import com.tencent.subject.domain.service.SubjectCategoryDomainService;
@@ -16,6 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -136,11 +139,13 @@ public class SubjectCategoryController {
      * 查询分类及标签一次性
      */
     @PostMapping("/queryCategoryAndLabel")
-    public Result<List<SubjectCategoryDTO>> queryCategoryAndLabel(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
+    public Result<List<SubjectCategoryDTO>> queryCategoryAndLabel(@RequestBody SubjectCategoryDTO subjectCategoryDTO)
+    {
         try {
             if (log.isInfoEnabled()) {
-                log.info("SubjectCategoryController.queryCategoryByPrimary.dto:{}", JSON.toJSONString(subjectCategoryDTO));
+                log.info("SubjectCategoryController.queryCategoryAndLabel.dto:{}", JSON.toJSONString(subjectCategoryDTO));
             }
+            String loginId = LoginUtil.getLoginId();
             Preconditions.checkNotNull(subjectCategoryDTO.getId(),"分类id不能为空");
             SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.
                     convertDTOtoCategoryBO(subjectCategoryDTO);
