@@ -26,8 +26,8 @@ public class LoginFilter implements GlobalFilter {
         ServerHttpRequest.Builder mutate = request.mutate();
         String url = request.getURI().getPath();
         log.info("LoginFilter.filter.url:{}",url);
-        if(url.equals("/user/doLogin")){
-            return chain.filter(exchange);
+        if(url.equals("auth/user/doLogin")){
+            chain.filter(exchange);
         }
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         log.info("LoginFilter.filter.url:{}", new Gson().toJson(tokenInfo));
