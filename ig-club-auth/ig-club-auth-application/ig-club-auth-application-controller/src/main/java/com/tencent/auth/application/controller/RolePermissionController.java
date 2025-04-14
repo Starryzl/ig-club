@@ -2,17 +2,12 @@ package com.tencent.auth.application.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
-import com.tencent.auth.application.convert.AuthPermissionDTOConverter;
 import com.tencent.auth.application.convert.AuthRolePermissionDTOConverter;
-import com.tencent.auth.application.dto.AuthPermissionDTO;
 import com.tencent.auth.application.dto.AuthRolePermissionDTO;
-import com.tencent.auth.common.entity.Result;
-import com.tencent.auth.domain.entity.AuthPermissionBO;
 import com.tencent.auth.domain.entity.AuthRolePermissionBO;
-import com.tencent.auth.domain.service.AuthPermissionDomainService;
 import com.tencent.auth.domain.service.AuthRolePermissionDomainService;
+import com.tencent.auth.entity.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

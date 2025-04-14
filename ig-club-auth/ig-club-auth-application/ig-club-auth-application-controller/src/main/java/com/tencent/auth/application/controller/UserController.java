@@ -2,15 +2,13 @@ package com.tencent.auth.application.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.tencent.auth.application.convert.AuthUserDTOConverter;
-import com.tencent.auth.application.dto.AuthUserDTO;
-import com.tencent.auth.common.entity.Result;
 import com.tencent.auth.domain.entity.AuthUserBO;
 import com.tencent.auth.domain.service.AuthUserDomainService;
-import com.tencent.auth.infra.basic.service.AuthUserRoleService;
+import com.tencent.auth.entity.AuthUserDTO;
+import com.tencent.auth.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +74,7 @@ public class UserController {
      * 获取用户信息
      */
     @RequestMapping("getUserInfo")
-    public Result<Boolean> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
+    public Result<AuthUserDTO> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
         try {
             if (log.isInfoEnabled()) {
                 log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(authUserDTO));
@@ -84,8 +82,7 @@ public class UserController {
             Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getUserName()),"用户名不能为空");
             AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
             AuthUserBO userInfo = authUserDomainService.getUserInfo(authUserBO);
-            return Result.ok(authUserDomainService.update(authUserBO));
-
+            return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userInfo));
         } catch (Exception e) {
             log.error("UserController.getUserInfo.error:{}", e.getMessage(), e);
             return Result.fail("获取用户信息失败");
@@ -121,9 +118,7 @@ public class UserController {
                 log.info("UserController.delete.dto:{}", JSON.toJSONString(authUserDTO));
             }
             AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
-
-            return Result.ok(authUserDomainService.delete(authUserBO));
-
+            return Result.ok(authUserDomainService.update(authUserBO));
         } catch (Exception e) {
             log.error("UserController.delete.error:{}", e.getMessage(), e);
             return Result.fail("删除用户信息失败");
@@ -152,7 +147,6 @@ public class UserController {
             return Result.fail("启用/禁用用户信息失败");
         }
     }
-
 
     @RequestMapping("doLogin")
     public Result<SaTokenInfo> doLogin(@RequestParam("validCode") String validCode) {

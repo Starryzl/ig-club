@@ -71,6 +71,9 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         if(StringUtils.isNotBlank(authUser.getPassword())){
             authUser.setPassword(SaSecureUtil.md5BySalt(authUser.getPassword(),salt));
         }
+        if(StringUtils.isBlank(authUser.getAvatar())){
+            authUser.setAvatar("http://101.43.165.160:9090/browser/igclub/%E5%A4%B4%E5%83%8F.jpg");
+        }
         authUser.setStatus(AuthUserStatusEnum.OPEN.getCode());
         authUser.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
         if(log.isInfoEnabled()){

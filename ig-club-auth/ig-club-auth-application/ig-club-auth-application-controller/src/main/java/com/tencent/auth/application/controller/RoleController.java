@@ -1,19 +1,12 @@
 package com.tencent.auth.application.controller;
 
-import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.tencent.auth.application.convert.AuthRoleDTOConverter;
-import com.tencent.auth.application.convert.AuthUserDTOConverter;
 import com.tencent.auth.application.dto.AuthRoleDTO;
-import com.tencent.auth.application.dto.AuthUserDTO;
-import com.tencent.auth.common.entity.Result;
 import com.tencent.auth.domain.entity.AuthRoleBO;
-import com.tencent.auth.domain.entity.AuthUserBO;
 import com.tencent.auth.domain.service.AuthRoleDomainService;
-import com.tencent.auth.domain.service.AuthUserDomainService;
+import com.tencent.auth.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;

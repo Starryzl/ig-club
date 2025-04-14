@@ -10,15 +10,13 @@ import com.tencent.subject.application.util.LoginUtil;
 import com.tencent.subject.common.entity.Result;
 import com.tencent.subject.domain.entity.SubjectCategoryBO;
 import com.tencent.subject.domain.service.SubjectCategoryDomainService;
-import com.tencent.subject.infra.basic.entity.SubjectCategory;
-import com.tencent.subject.infra.basic.service.SubjectCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 

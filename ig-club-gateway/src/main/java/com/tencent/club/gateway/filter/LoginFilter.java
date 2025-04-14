@@ -2,6 +2,7 @@ package com.tencent.club.gateway.filter;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -15,8 +16,8 @@ import reactor.core.publisher.Mono;
 /**
  * 登陆拦截器
  */
-@Slf4j
 @Component
+@Slf4j
 public class LoginFilter implements GlobalFilter {
     @Override
     @SneakyThrows
@@ -24,17 +25,17 @@ public class LoginFilter implements GlobalFilter {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
         String url = request.getURI().getPath();
-        log.info("LoginFilter.filter.url",url);
-        if(url.equals("/auth/user/doLogin")){
-            chain.filter(exchange);
+        log.info("LoginFilter.filter.url:{}",url);
+        if(url.equals("/user/doLogin")){
+            return chain.filter(exchange);
         }
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        log.info("LoginFilter.filter.url:{}", new Gson().toJson(tokenInfo));
         String loginId = (String) tokenInfo.getLoginId();
-        if (StringUtils.isEmpty(loginId)){
-            throw  new Exception("未获取到用户信息");
+        if (StringUtils.isEmpty(loginId)) {
+            throw new Exception("未获取到用户信息");
         }
         mutate.header("loginId",loginId);
-
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 }

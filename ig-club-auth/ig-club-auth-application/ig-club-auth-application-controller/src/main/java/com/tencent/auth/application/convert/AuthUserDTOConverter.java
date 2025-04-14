@@ -1,7 +1,7 @@
 package com.tencent.auth.application.convert;
 
-import com.tencent.auth.application.dto.AuthUserDTO;
 import com.tencent.auth.domain.entity.AuthUserBO;
+import com.tencent.auth.entity.AuthUserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

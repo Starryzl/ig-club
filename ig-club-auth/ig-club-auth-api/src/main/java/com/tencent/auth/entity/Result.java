@@ -1,6 +1,5 @@
-package com.tencent.auth.common.entity;
+package com.tencent.auth.entity;
 
-import com.tencent.auth.common.enums.ResultCodeEnum;
 import lombok.Data;
 
 @Data

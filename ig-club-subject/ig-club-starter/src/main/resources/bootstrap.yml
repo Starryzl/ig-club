@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ig-club-subject
+    name: ig-club-subject-dev
   profiles:
     active: dev
   cloud:

@@ -1,4 +1,4 @@
-package com.tencent.auth.common.enums;
+package com.tencent.auth.entity;
 
 import lombok.Getter;
 

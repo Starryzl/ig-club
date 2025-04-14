@@ -1,15 +1,12 @@
-package com.tencent.auth.application.dto;
+package com.tencent.auth.entity;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户信息dto
  *
- * @author makejava
- * @since 2024-05-11 15:36:43
  */
 @Data
 public class AuthUserDTO implements Serializable {

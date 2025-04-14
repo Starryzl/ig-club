@@ -5,19 +5,19 @@ spring:
     gateway:
       routes:
         - id: oss
-          uri: lb://ig-club-oss
+          uri: lb://ig-club-oss-dev
           predicates:
             - Path=/oss/**
           filters:
             - StripPrefix=1
         - id: auth
-          uri: lb://ig-club-auth
+          uri: lb://ig-club-auth-dev
           predicates:
             - Path=/auth/**
           filters:
             - StripPrefix=1
         - id: subject
-          uri: lb://ig-club-subject
+          uri: lb://ig-club-subject-dev
           predicates:
             - Path=/subject/**
           filters:
