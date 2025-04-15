@@ -1,14 +1,11 @@
 package com.tencent.subject.infra.basic.service;
 
+import com.tencent.subject.common.entity.PageResult;
+import com.tencent.subject.infra.basic.entity.SubjectInfoEs;
+
 public interface SubjectEsService {
 
-    void createIndex();
+    boolean insert(SubjectInfoEs subjectInfoEs);
 
-    void addDocs();
-
-    void find();
-
-    void search();
-
-
+    PageResult<SubjectInfoEs> querySubjectList(SubjectInfoEs subjectInfoEs);
 }

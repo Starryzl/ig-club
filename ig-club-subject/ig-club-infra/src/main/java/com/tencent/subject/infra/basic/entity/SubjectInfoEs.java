@@ -1,34 +1,31 @@
 package com.tencent.subject.infra.basic.entity;
 
-import lombok.AllArgsConstructor;
+import com.tencent.subject.common.entity.PageInfo;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Document(indexName = "subject_index",createIndex = false)
-public class SubjectInfoEs {
+public class SubjectInfoEs extends PageInfo implements Serializable {
 
-    @Field(type = FieldType.Long)
-    @Id
-    private Long id;
+    private Long subjectId;
 
-    @Field(type = FieldType.Text,analyzer = "ik_smart")
+    private Long docId;
+
     private String subjectName;
 
-    @Field(type = FieldType.Text,analyzer = "ik_smart")
     private String subjectAnswer;
 
-    @Field(type = FieldType.Keyword)
     private String createUser;
 
-    @Field(type = FieldType.Date,index = false)
-    private Date createTime;
+    private Long createTime;
+
+    private Integer subjectType;
+
+    private String keyWord;
+
+    private BigDecimal score;
+
+
 }

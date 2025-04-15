@@ -103,7 +103,7 @@ public class EsRestClient {
         try {
             IndexRequest indexRequest = new IndexRequest(esIndexInfo.getIndexName());
             indexRequest.source(esSourceData.getData());
-            indexRequest.source(esSourceData.getDocId());
+            indexRequest.id(esSourceData.getDocId());
             getClient(esIndexInfo.getClusterName()).index(indexRequest, COMMON_OPTIONS);
             return true;
         } catch (Exception e) {
