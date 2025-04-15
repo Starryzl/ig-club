@@ -10,6 +10,7 @@ import com.tencent.subject.application.util.LoginUtil;
 import com.tencent.subject.common.entity.Result;
 import com.tencent.subject.domain.entity.SubjectCategoryBO;
 import com.tencent.subject.domain.service.SubjectCategoryDomainService;
+import com.tencent.subject.infra.basic.service.SubjectEsService;
 import com.tencent.subject.infra.entity.UserInfo;
 import com.tencent.subject.infra.rpc.UserRpc;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +34,33 @@ public class TestFeignController {
     @Resource
     private UserRpc userRpc;
 
+    @Resource
+    private SubjectEsService subjectEsService;
+
     @GetMapping("testFeign")
     public void testFeign(){
         UserInfo userInfo = userRpc.getUserInfo("ig");
         log.info("testFeign.userInfo:{}",userInfo);
 
+    }
+
+    @GetMapping("testCreateIndex")
+    public void testCreateIndex(){
+        subjectEsService.createIndex();
+    }
+
+    @GetMapping("addDocs")
+    public void addDocs(){
+        subjectEsService.addDocs();
+    }
+
+    @GetMapping("find")
+    public void find(){
+        subjectEsService.find();
+    }
+
+    @GetMapping("search")
+    public void search(){
+        subjectEsService.search();
     }
 }
