@@ -27,12 +27,14 @@ spring:
           enabled: true
         config:
           enabled: true
-  elasticsearch:
-    rest:
-      uris: http://101.43.165.160:9200
+
 
 
 publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIb04SqefAbD8BfI85E2mkraSzvsBlFyngU5Bf/5ibOAPQ3MOA6u6Y6crNfo5yw5SXMgkiSevAubPaNCSw/5MikCAwEAAQ==
 logging:
   config: classpath:log4j2-spring.xml
-
+es:
+  cluster:
+    esConfigs[0]:
+      name: b4261c7528b2
+      nodes: 101.43.165.160:9200
