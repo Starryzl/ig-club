@@ -1,4 +1,4 @@
-package com.tencent.subject.infra.basic.config;
+package com.tencent.subject.infra.config;
 
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;

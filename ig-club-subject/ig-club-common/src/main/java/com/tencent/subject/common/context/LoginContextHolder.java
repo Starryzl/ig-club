@@ -1,4 +1,4 @@
-package com.tencent.subject.application.context;
+package com.tencent.subject.common.context;
 
 import java.util.Map;
 import java.util.Objects;

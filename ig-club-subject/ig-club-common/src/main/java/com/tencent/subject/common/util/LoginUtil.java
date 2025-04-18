@@ -1,6 +1,7 @@
-package com.tencent.subject.application.util;
+package com.tencent.subject.common.util;
 
-import com.tencent.subject.application.context.LoginContextHolder;
+
+import com.tencent.subject.common.context.LoginContextHolder;
 
 /**
  * 用户登陆util

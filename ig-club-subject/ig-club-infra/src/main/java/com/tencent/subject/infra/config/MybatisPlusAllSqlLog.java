@@ -1,4 +1,4 @@
-package com.tencent.subject.infra.basic.config;
+package com.tencent.subject.infra.config;
 
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import org.apache.ibatis.executor.Executor;

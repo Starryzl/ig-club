@@ -1,4 +1,4 @@
-package com.tencent.subject.infra.basic.config;
+package com.tencent.subject.infra.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import org.springframework.context.annotation.Bean;
