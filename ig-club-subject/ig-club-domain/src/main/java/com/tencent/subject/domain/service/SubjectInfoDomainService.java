@@ -31,4 +31,6 @@ public interface SubjectInfoDomainService {
      * 全文检索
      */
     PageResult<SubjectInfoEs> getSubjectPageBySearch(SubjectInfoBO subjectInfoBO);
+
+    List<SubjectInfoBO> getContributeList();
 }

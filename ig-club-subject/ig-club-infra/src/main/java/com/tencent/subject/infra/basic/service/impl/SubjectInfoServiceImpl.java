@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -75,5 +76,10 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
     @Override
     public List<SubjectInfo> queryPage(SubjectInfo subjectInfo, Long categoryId, Long labelId, int start, Integer pageSize) {
         return this.subjectInfoDao.queryPage(subjectInfo,categoryId,labelId,start,pageSize);
+    }
+
+    @Override
+    public List<SubjectInfo> getContributeCount() {
+        return this.subjectInfoDao.getContributeCount();
     }
 }
