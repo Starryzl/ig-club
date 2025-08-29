@@ -1,5 +1,7 @@
 package com.tencent.club.gateway.filter;
 
+import cn.dev33.satoken.reactor.context.SaReactorHolder;
+import cn.dev33.satoken.reactor.context.SaReactorSyncHolder;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.google.gson.Gson;
@@ -8,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
@@ -23,19 +26,18 @@ public class LoginFilter implements GlobalFilter {
     @SneakyThrows
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        ServerHttpResponse response = exchange.getResponse();
         ServerHttpRequest.Builder mutate = request.mutate();
         String url = request.getURI().getPath();
-        log.info("LoginFilter.filter.url:{}",url);
-        if(url.equals("auth/user/doLogin")){
-            chain.filter(exchange);
+        log.info("LoginFilter.filter.url:{}", url);
+        if (url.equals("/user/doLogin")) {
+            return chain.filter(exchange);
         }
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         log.info("LoginFilter.filter.url:{}", new Gson().toJson(tokenInfo));
         String loginId = (String) tokenInfo.getLoginId();
-        if (StringUtils.isEmpty(loginId)) {
-            throw new Exception("未获取到用户信息");
-        }
-        mutate.header("loginId",loginId);
+        mutate.header("loginId", loginId);
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
+
 }

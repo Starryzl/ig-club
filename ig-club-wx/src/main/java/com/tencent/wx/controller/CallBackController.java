@@ -22,12 +22,12 @@ public class CallBackController {
     private WxChatMsgFactory wxChatMsgFactory;
 
     @RequestMapping("/test")
-    public String test(){
+    public String test() {
         return "hello world";
     }
 
     /**
-     * 回调信息检验
+     * 回调消息校验
      */
     @GetMapping("callback")
     public String callback(@RequestParam("signature") String signature,
@@ -43,7 +43,7 @@ public class CallBackController {
         return "unknown";
     }
 
-    @PostMapping(value = "callback", produces = "application/xml;charset=UTF-8")
+    @PostMapping(value = "callback", produces = "text/plain;charset=UTF-8")
     public String callback(
             @RequestBody String requestBody,
             @RequestParam("signature") String signature,
@@ -54,7 +54,7 @@ public class CallBackController {
         Map<String, String> messageMap = MessageUtil.parseXml(requestBody);
         String msgType = messageMap.get("MsgType");
         String event = messageMap.get("Event") == null ? "" : messageMap.get("Event");
-        log.info("msgType：{}，event：{}",msgType,event);
+        log.info("msgType:{},event:{}", msgType, event);
 
         StringBuilder sb = new StringBuilder();
         sb.append(msgType);
