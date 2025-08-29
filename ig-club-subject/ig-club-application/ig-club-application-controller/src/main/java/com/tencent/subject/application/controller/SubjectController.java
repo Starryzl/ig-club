@@ -142,7 +142,6 @@ public class SubjectController {
     @PostMapping("/getContributeList")
     public Result<List<SubjectInfoDTO>> getContributeList() {
         try {
-
             List<SubjectInfoBO> boList = subjectinfoDomainService.getContributeList();
             List<SubjectInfoDTO> dtoList = SubjectInfoDTOConverter.INSTANCE.convertBOToDTOList(boList);
             return Result.ok(dtoList);
