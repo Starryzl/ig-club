@@ -1,0 +1,29 @@
+package com.tencent.subject.domain.service;
+
+
+import com.tencent.subject.domain.entity.SubjectLikedBO;
+
+/**
+ * 题目点赞表 领域service
+ *
+ * @author ig
+ * @since 2025-08-30 00:04:18
+ */
+public interface SubjectLikedDomainService {
+
+    /**
+     * 添加 题目点赞表 信息
+     */
+    Boolean add(SubjectLikedBO subjectLikedBO);
+
+    /**
+     * 更新 题目点赞表 信息
+     */
+    Boolean update(SubjectLikedBO subjectLikedBO);
+
+    /**
+     * 删除 题目点赞表 信息
+     */
+    Boolean delete(SubjectLikedBO subjectLikedBO);
+
+}
