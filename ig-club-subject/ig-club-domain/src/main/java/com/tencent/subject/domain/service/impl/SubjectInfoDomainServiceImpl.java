@@ -12,6 +12,7 @@ import com.tencent.subject.domain.handler.subject.SubjectTypeHandler;
 import com.tencent.subject.domain.handler.subject.SubjectTypeHandlerFactory;
 import com.tencent.subject.domain.redis.RedisUtil;
 import com.tencent.subject.domain.service.SubjectInfoDomainService;
+import com.tencent.subject.domain.service.SubjectLikedDomainService;
 import com.tencent.subject.infra.basic.entity.SubjectInfo;
 import com.tencent.subject.infra.basic.entity.SubjectInfoEs;
 import com.tencent.subject.infra.basic.entity.SubjectLabel;
@@ -50,6 +51,9 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
 
     @Resource
     private SubjectEsService subjectEsService;
+
+    @Resource
+    private SubjectLikedDomainService subjectLikedDomainService;
 
     @Resource
     private UserRpc userRpc;
@@ -152,8 +156,10 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         List<Long> labelIdList = mappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
         List<SubjectLabel> labelList = subjectLabelService.batchQueryById(labelIdList);
         List<String> labelNameList = labelList.stream().map(SubjectLabel::getLabelName).collect(Collectors.toList());
-        //转换
         bo.setLabelName(labelNameList);
+
+        bo.setLiked(subjectLikedDomainService.isLiked(subjectInfoBO.getId().toString(),LoginUtil.getLoginId()));
+        bo.setLikedCount(subjectLikedDomainService.getLikedCount(subjectInfo.getId().toString()));
         return bo;
     }
 

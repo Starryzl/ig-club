@@ -3,6 +3,7 @@ package com.tencent.subject.application.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 题目点赞表 dto

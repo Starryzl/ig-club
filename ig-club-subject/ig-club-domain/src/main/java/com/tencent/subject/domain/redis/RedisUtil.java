@@ -1,6 +1,7 @@
 package com.tencent.subject.domain.redis;
 
 import lombok.extern.slf4j.Slf4j;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -105,6 +106,22 @@ public class RedisUtil {
         Set<ZSetOperations.TypedTuple<String>> set = redisTemplate.opsForZSet().reverseRangeWithScores(key, start, end);
         return set;
     }
+
+    public void putHash(String key,String hashKey,Object hashVal){
+        redisTemplate.opsForHash().put(key,hashKey,hashVal);
+    }
+
+    public Integer getInt(String key){
+        return (Integer) redisTemplate.opsForValue().get(key);
+    }
+
+    public void increment(String key,Integer count){
+        redisTemplate.opsForValue().increment(key,count);
+    }
+
+
+
+
 
 }
 
