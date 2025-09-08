@@ -2,6 +2,8 @@ package com.tencent.subject.infra.basic.service;
 
 import com.tencent.subject.infra.basic.entity.SubjectLiked;
 
+import java.util.List;
+
 /**
  * 题目点赞表 表服务接口
  *
@@ -47,4 +49,5 @@ public interface SubjectLikedService {
      */
     SubjectLiked queryByCondition(SubjectLiked subjectLiked);
 
+    void batchInsert(List<SubjectLiked> subjectLikedList);
 }

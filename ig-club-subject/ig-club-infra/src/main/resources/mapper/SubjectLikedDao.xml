@@ -14,4 +14,20 @@
         <result column="is_deleted" jdbcType="INTEGER" property="isDeleted"/>
     </resultMap>
 
+    <insert id="insertBatch">
+        insert into subject_liked(id, subject_id, like_user_id, status, created_by, created_time, update_by,
+        update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},
+            #{entity.subjectId},
+            #{entity.likeUserId},
+            #{entity.status},
+            #{entity.createdBy},
+            #{entity.createdTime},
+            #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+
 </mapper>

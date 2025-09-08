@@ -2,6 +2,7 @@ package com.tencent.subject.infra.basic.mapper;
 
 import com.tencent.subject.infra.basic.entity.SubjectLiked;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +15,6 @@ import java.util.List;
  */
 @Repository
 public interface SubjectLikedDao extends BaseMapper<SubjectLiked> {
-
+    int insertBatch(@Param("entities") List<SubjectLiked> entities);
 }
 
