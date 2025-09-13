@@ -156,12 +156,27 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         List<Long> labelIdList = mappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
         List<SubjectLabel> labelList = subjectLabelService.batchQueryById(labelIdList);
         List<String> labelNameList = labelList.stream().map(SubjectLabel::getLabelName).collect(Collectors.toList());
-        bo.setLabelName(labelNameList);
 
+        bo.setLabelName(labelNameList);
         bo.setLiked(subjectLikedDomainService.isLiked(subjectInfoBO.getId().toString(),LoginUtil.getLoginId()));
         bo.setLikedCount(subjectLikedDomainService.getLikedCount(subjectInfo.getId().toString()));
+        assembleSubjectCursor(subjectInfoBO,bo);
         return bo;
     }
+
+    private void assembleSubjectCursor(SubjectInfoBO subjectInfoBO, SubjectInfoBO bo) {
+        Long categoryId = subjectInfoBO.getCategoryId();
+        Long labelId = subjectInfoBO.getLabelId();
+        Long subjectId = subjectInfoBO.getId();
+        if (Objects.isNull(categoryId) || Objects.isNull(labelId)) {
+            return;
+        }
+        Long nextSubjectId = subjectInfoService.querySubjectIdCursor(subjectId, categoryId, labelId, 1);
+        bo.setNextSubjectId(nextSubjectId);
+        Long lastSubjectId = subjectInfoService.querySubjectIdCursor(subjectId, categoryId, labelId, 0);
+        bo.setLastSubjectId(lastSubjectId);
+    }
+
 
     @Override
     public PageResult<SubjectInfoEs> getSubjectPageBySearch(SubjectInfoBO subjectInfoBO) {
