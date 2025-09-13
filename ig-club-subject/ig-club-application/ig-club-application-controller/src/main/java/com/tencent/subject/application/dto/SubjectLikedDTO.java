@@ -1,5 +1,6 @@
 package com.tencent.subject.application.dto;
 
+import com.tencent.subject.common.entity.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @since 2025-08-30 00:04:18
  */
 @Data
-public class SubjectLikedDTO implements Serializable {
+public class SubjectLikedDTO extends PageInfo implements Serializable {
 
     /**
      * 主键

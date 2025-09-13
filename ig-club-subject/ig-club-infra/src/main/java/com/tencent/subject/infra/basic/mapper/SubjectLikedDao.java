@@ -16,5 +16,12 @@ import java.util.List;
 @Repository
 public interface SubjectLikedDao extends BaseMapper<SubjectLiked> {
     int insertBatch(@Param("entities") List<SubjectLiked> entities);
+
+    int countByCondition(SubjectLiked subjectLiked);
+
+    List<SubjectLiked> queryPage(@Param("entity") SubjectLiked subjectLiked,
+                                 @Param("start") int start,
+                                 @Param("pageSize") Integer pageSize);
+
 }
 

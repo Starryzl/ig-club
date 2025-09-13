@@ -1,6 +1,7 @@
 package com.tencent.subject.domain.service;
 
 
+import com.tencent.subject.common.entity.PageResult;
 import com.tencent.subject.domain.entity.SubjectLikedBO;
 
 /**
@@ -41,4 +42,5 @@ public interface SubjectLikedDomainService {
      */
     void syncLiked();
 
+    PageResult<SubjectLikedBO> getSubjectLikedPage(SubjectLikedBO subjectLikedBO);
 }
