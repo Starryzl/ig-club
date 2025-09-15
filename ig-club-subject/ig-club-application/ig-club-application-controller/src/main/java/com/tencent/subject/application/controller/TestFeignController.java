@@ -1,9 +1,5 @@
 package com.tencent.subject.application.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.tencent.subject.common.entity.PageResult;
-import com.tencent.subject.infra.basic.entity.SubjectInfoEs;
-import com.tencent.subject.infra.basic.service.SubjectEsService;
 import com.tencent.subject.infra.entity.UserInfo;
 import com.tencent.subject.infra.rpc.UserRpc;
 import lombok.extern.slf4j.Slf4j;

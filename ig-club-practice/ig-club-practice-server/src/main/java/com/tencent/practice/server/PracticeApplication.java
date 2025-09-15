@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan("com.tencent")
-@MapperScan("com.tencent.**.mapper")
+@MapperScan("com.tencent.**.dao")
 public class PracticeApplication {
 
     public static void main(String[] args) {
