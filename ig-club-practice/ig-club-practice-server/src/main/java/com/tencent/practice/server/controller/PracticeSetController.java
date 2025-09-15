@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.base.Preconditions;
 import com.tencent.practice.api.common.Result;
 import com.tencent.practice.api.req.GetPracticeSubjectListReq;
+import com.tencent.practice.api.req.GetPracticeSubjectReq;
+import com.tencent.practice.api.req.GetPracticeSubjectsReq;
 import com.tencent.practice.api.vo.PracticeSetVO;
+import com.tencent.practice.api.vo.PracticeSubjectListVO;
+import com.tencent.practice.api.vo.PracticeSubjectVO;
 import com.tencent.practice.api.vo.SpecialPracticeVO;
 import com.tencent.practice.server.entity.dto.PracticeSubjectDTO;
 import com.tencent.practice.server.service.PracticeSetService;
@@ -69,6 +73,60 @@ public class PracticeSetController {
         } catch (Exception e) {
             log.error("获取练习题目列表异常！错误原因{}", e.getMessage(), e);
             return Result.fail("获取练习题目列表异常！");
+        }
+    }
+
+    /**
+     * 获取练习题
+     */
+    @PostMapping(value = "/getSubjects")
+    public Result<PracticeSubjectListVO> getSubjects(@RequestBody GetPracticeSubjectsReq req) {
+        if (log.isInfoEnabled()) {
+            log.info("获取练习题入参{}", JSON.toJSONString(req));
+        }
+        try {
+            Preconditions.checkArgument(!Objects.isNull(req), "参数不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getSetId()), "练习id不能为空！");
+            PracticeSubjectListVO list = practiceSetService.getSubjects(req);
+            if (log.isInfoEnabled()) {
+                log.info("获取练习题目列表出参{}", JSON.toJSONString(list));
+            }
+            return Result.ok(list);
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常！错误原因{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("获取练习题目列表异常！错误原因{}", e.getMessage(), e);
+            return Result.fail("获取练习题目列表异常！");
+        }
+    }
+
+    /**
+     * 获取题目详情
+     */
+    @PostMapping(value = "/getPracticeSubject")
+    public Result<PracticeSubjectVO> getPracticeSubject(@RequestBody GetPracticeSubjectReq req) {
+        if (log.isInfoEnabled()) {
+            log.info("获取练习题详情入参{}", JSON.toJSONString(req));
+        }
+        try {
+            Preconditions.checkArgument(!Objects.isNull(req), "参数不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getSubjectId()), "题目id不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getSubjectType()), "题目类型不能为空！");
+            PracticeSubjectDTO dto = new PracticeSubjectDTO();
+            dto.setSubjectId(req.getSubjectId());
+            dto.setSubjectType(req.getSubjectType());
+            PracticeSubjectVO vo = practiceSetService.getPracticeSubject(dto);
+            if (log.isInfoEnabled()) {
+                log.info("获取练习题目详情出参{}", JSON.toJSONString(vo));
+            }
+            return Result.ok(vo);
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常！错误原因{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("获取练习详情异常！错误原因{}", e.getMessage(), e);
+            return Result.fail("获取练习题目详情异常！");
         }
     }
 

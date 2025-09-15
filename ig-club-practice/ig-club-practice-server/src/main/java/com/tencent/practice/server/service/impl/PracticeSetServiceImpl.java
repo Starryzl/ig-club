@@ -3,6 +3,7 @@ package com.tencent.practice.server.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tencent.practice.api.common.SubjectInfoTypeEnum;
 import com.tencent.practice.api.enums.IsDeletedFlagEnum;
+import com.tencent.practice.api.req.GetPracticeSubjectsReq;
 import com.tencent.practice.api.vo.*;
 import com.tencent.practice.server.dao.*;
 import com.tencent.practice.server.entity.dto.CategoryDTO;
@@ -39,6 +40,11 @@ public class PracticeSetServiceImpl implements PracticeSetService {
     @Resource
     private SubjectDao subjectDao;
 
+    @Resource
+    private SubjectRadioDao subjectRadioDao;
+
+    @Resource
+    private SubjectMultipleDao subjectMultipleDao;
 
     //大类-分类-标签
     @Override
@@ -152,6 +158,60 @@ public class PracticeSetServiceImpl implements PracticeSetService {
         setVO.setSetId(practiceSetId);
         return setVO;
     }
+
+    @Override
+    public PracticeSubjectListVO getSubjects(GetPracticeSubjectsReq req) {
+        Long setId = req.getSetId();
+        PracticeSubjectListVO vo = new PracticeSubjectListVO();
+        List<PracticeSubjectDetailVO> practiceSubjectListVOS = new LinkedList<>();
+        List<PracticeSetDetailPO> practiceSetDetailPOS = practiceSetDetailDao.selectBySetId(setId);
+        if (CollectionUtils.isEmpty(practiceSetDetailPOS)) {
+            return vo;
+        }
+        practiceSetDetailPOS.forEach(e -> {
+            PracticeSubjectDetailVO practiceSubjectListVO = new PracticeSubjectDetailVO();
+            practiceSubjectListVO.setSubjectId(e.getSubjectId());
+            practiceSubjectListVO.setSubjectType(e.getSubjectType());
+            practiceSubjectListVOS.add(practiceSubjectListVO);
+        });
+        vo.setSubjectList(practiceSubjectListVOS);
+        PracticeSetPO practiceSetPO = practiceSetDao.selectById(setId);
+        vo.setTitle(practiceSetPO.getSetName());
+        return vo;
+    }
+
+    @Override
+    public PracticeSubjectVO getPracticeSubject(PracticeSubjectDTO dto) {
+        PracticeSubjectVO practiceSubjectVO = new PracticeSubjectVO();
+        SubjectPO subjectPO = subjectDao.selectById(dto.getSubjectId());
+        practiceSubjectVO.setSubjectName(subjectPO.getSubjectName());
+        practiceSubjectVO.setSubjectType(subjectPO.getSubjectType());
+        if (dto.getSubjectType() == SubjectInfoTypeEnum.RADIO.getCode()) {
+            List<PracticeSubjectOptionVO> optionList = new LinkedList<>();
+            List<SubjectRadioPO> radioSubjectPOS = subjectRadioDao.selectBySubjectId(subjectPO.getId());
+            radioSubjectPOS.forEach(e -> {
+                PracticeSubjectOptionVO practiceSubjectOptionVO = new PracticeSubjectOptionVO();
+                practiceSubjectOptionVO.setOptionContent(e.getOptionContent());
+                practiceSubjectOptionVO.setOptionType(e.getOptionType());
+                optionList.add(practiceSubjectOptionVO);
+            });
+            practiceSubjectVO.setOptionList(optionList);
+        }
+        if (dto.getSubjectType() == SubjectInfoTypeEnum.MULTIPLE.getCode()) {
+            List<PracticeSubjectOptionVO> optionList = new LinkedList<>();
+            List<SubjectMultiplePO> multipleSubjectPOS = subjectMultipleDao.selectBySubjectId(subjectPO.getId());
+            multipleSubjectPOS.forEach(e -> {
+                PracticeSubjectOptionVO practiceSubjectOptionVO = new PracticeSubjectOptionVO();
+                practiceSubjectOptionVO.setOptionContent(e.getOptionContent());
+                practiceSubjectOptionVO.setOptionType(e.getOptionType());
+                optionList.add(practiceSubjectOptionVO);
+            });
+            practiceSubjectVO.setOptionList(optionList);
+        }
+        return practiceSubjectVO;
+    }
+
+
 
     /**
      * 获取套卷题目信息

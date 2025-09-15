@@ -25,6 +25,15 @@
         order by rand() LIMIT #{subjectCount, jdbcType= INTEGER};
     </select>
 
+    <select id="selectById" resultType="com.tencent.practice.server.entity.po.SubjectPO">
+        select id,
+               subject_name  as subjectName,
+               subject_type  as subjectType
+        from subject_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
 
 </mapper>
 
