@@ -1,25 +1,30 @@
-package com.tencent.practice.api.req;
+package com.tencent.practice.server.entity.dto;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class GetPracticeSubjectReq implements Serializable {
+public class SubjectDTO implements Serializable {
+
+    /**
+     * 题目id
+     */
+    private Long id;
+
     /**
      * 题目id
      */
     private Long subjectId;
 
     /**
-     * 练习id
+     * 题目名称
      */
-    private Long practiceId;
+    private String subjectName;
 
     /**
      * 题目类型
      */
     private Integer subjectType;
-
 
 }

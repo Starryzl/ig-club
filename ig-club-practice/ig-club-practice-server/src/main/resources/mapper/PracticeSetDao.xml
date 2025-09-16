@@ -27,6 +27,13 @@
           and id = #{setId,jdbcType=BIGINT}
     </select>
 
+    <update id="updateHeat">
+        update practice_set
+        set set_heat = set_heat + 1
+        where id = #{setId,jdbcType=BIGINT}
+    </update>
+
+
 
 </mapper>
 

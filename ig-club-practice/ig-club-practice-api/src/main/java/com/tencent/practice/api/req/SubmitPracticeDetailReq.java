@@ -3,10 +3,9 @@ package com.tencent.practice.api.req;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
-public class GetPracticeSubjectsReq implements Serializable {
+public class SubmitPracticeDetailReq implements Serializable {
     /**
      * 套题id
      */
@@ -16,5 +15,15 @@ public class GetPracticeSubjectsReq implements Serializable {
      * 练习id
      */
     private Long practiceId;
+
+    /**
+     * 用时
+     */
+    private String timeUse;
+
+    /**
+     * 交卷时间
+     */
+    private String submitTime;
 
 }
