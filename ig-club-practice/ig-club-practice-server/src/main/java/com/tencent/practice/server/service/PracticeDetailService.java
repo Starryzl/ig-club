@@ -1,9 +1,7 @@
 package com.tencent.practice.server.service;
 
-import com.tencent.practice.api.req.GetScoreDetailReq;
-import com.tencent.practice.api.req.GetSubjectDetailReq;
-import com.tencent.practice.api.req.SubmitPracticeDetailReq;
-import com.tencent.practice.api.req.SubmitSubjectDetailReq;
+import com.tencent.practice.api.req.*;
+import com.tencent.practice.api.vo.ReportVO;
 import com.tencent.practice.api.vo.ScoreDetailVO;
 import com.tencent.practice.api.vo.SubjectDetailVO;
 
@@ -30,4 +28,9 @@ public interface PracticeDetailService {
      * 获得答案详情
      */
     SubjectDetailVO getSubjectDetail(GetSubjectDetailReq req);
+
+    /**
+     * 答案解析-评估报告
+     */
+    ReportVO getReport(GetReportReq req);
 }
