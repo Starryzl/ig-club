@@ -1,6 +1,7 @@
 package com.tencent.practice.server.service;
 
 import com.tencent.practice.api.req.*;
+import com.tencent.practice.api.vo.RankVO;
 import com.tencent.practice.api.vo.ReportVO;
 import com.tencent.practice.api.vo.ScoreDetailVO;
 import com.tencent.practice.api.vo.SubjectDetailVO;
@@ -33,4 +34,9 @@ public interface PracticeDetailService {
      * 答案解析-评估报告
      */
     ReportVO getReport(GetReportReq req);
+
+    /**
+     * 练习榜
+     */
+    List<RankVO> getPracticeRankList();
 }

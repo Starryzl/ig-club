@@ -1,6 +1,7 @@
 package com.tencent.practice.server.dao;
 
 import com.tencent.practice.server.entity.po.PracticeDetailPO;
+import com.tencent.practice.server.entity.po.PracticeRankPO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public interface PracticeDetailDao {
      */
     PracticeDetailPO selectAnswer(@Param("practiceId") Long practiceId,@Param("subjectId") Long subjectId);
 
+    /**
+     * 获取排行榜情况
+     */
+    List<PracticeRankPO> getPracticeCount();
 }

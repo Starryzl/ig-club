@@ -12,7 +12,9 @@ import com.tencent.practice.server.dao.*;
 import com.tencent.practice.server.entity.dto.SubjectDTO;
 import com.tencent.practice.server.entity.dto.SubjectDetailDTO;
 import com.tencent.practice.server.entity.dto.SubjectOptionDTO;
+import com.tencent.practice.server.entity.dto.UserInfo;
 import com.tencent.practice.server.entity.po.*;
+import com.tencent.practice.server.rpc.UserRpc;
 import com.tencent.practice.server.service.PracticeDetailService;
 import com.tencent.practice.server.util.DateUtils;
 import com.tencent.practice.server.util.LoginUtil;
@@ -60,6 +62,9 @@ public class PracticeDetailServiceImpl implements PracticeDetailService {
 
     @Resource
     private SubjectLabelDao subjectLabelDao;
+
+    @Resource
+    private UserRpc userRpc;
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
@@ -310,6 +315,23 @@ public class PracticeDetailServiceImpl implements PracticeDetailService {
         return reportVO;
     }
 
+    @Override
+    public List<RankVO> getPracticeRankList() {
+        List<RankVO> list = new LinkedList<>();
+        List<PracticeRankPO> poList = practiceDetailDao.getPracticeCount();
+        if (CollectionUtils.isEmpty(poList)) {
+            return list;
+        }
+        poList.forEach(e -> {
+            RankVO rankVO = new RankVO();
+            rankVO.setCount(e.getCount());
+            UserInfo userInfo = userRpc.getUserInfo(e.getCreatedBy());
+            rankVO.setName(userInfo.getNickName());
+            rankVO.setAvatar(userInfo.getAvatar());
+            list.add(rankVO);
+        });
+        return list;
+    }
 
     private Map<Long, Integer> getSubjectLabelMap(List<PracticeDetailPO> practiceDetailPOList) {
         if (CollectionUtils.isEmpty(practiceDetailPOList)) {
