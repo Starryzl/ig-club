@@ -20,5 +20,14 @@
         </foreach>
         group by a.label_id
     </select>
+
+    <select id="getLabelIdsBySubjectId"
+            resultType="com.tencent.practice.server.entity.po.SubjectMappingPO">
+        select distinct label_id as labelId
+        from subject_mapping
+        where is_deleted = 0
+          and subject_id = #{subjectId,jdbcType=BIGINT}
+    </select>
+
 </mapper>
 

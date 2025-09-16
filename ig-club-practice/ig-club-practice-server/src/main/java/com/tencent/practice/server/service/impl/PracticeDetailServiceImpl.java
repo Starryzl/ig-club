@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tencent.practice.api.common.SubjectInfoTypeEnum;
 import com.tencent.practice.api.enums.CompleteStatusEnum;
 import com.tencent.practice.api.enums.IsDeletedFlagEnum;
+import com.tencent.practice.api.req.GetScoreDetailReq;
+import com.tencent.practice.api.req.GetSubjectDetailReq;
 import com.tencent.practice.api.req.SubmitPracticeDetailReq;
 import com.tencent.practice.api.req.SubmitSubjectDetailReq;
 import com.tencent.practice.api.vo.*;
@@ -55,6 +57,11 @@ public class PracticeDetailServiceImpl implements PracticeDetailService {
     @Resource
     private SubjectJudgeDao subjectJudgeDao;
 
+    @Resource
+    private SubjectMappingDao subjectMappingDao;
+
+    @Resource
+    private SubjectLabelDao subjectLabelDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
@@ -180,6 +187,88 @@ public class PracticeDetailServiceImpl implements PracticeDetailService {
         }
         return true;
     }
+
+    @Override
+    public List<ScoreDetailVO> getScoreDetail(GetScoreDetailReq req) {
+        Long practiceId = req.getPracticeId();
+        List<ScoreDetailVO> list = new LinkedList<>();
+        List<PracticeDetailPO> practiceDetailPOList = practiceDetailDao.selectByPracticeId(practiceId);
+        if (CollectionUtils.isEmpty(practiceDetailPOList)) {
+            return Collections.emptyList();
+        }
+        practiceDetailPOList.forEach(po -> {
+            ScoreDetailVO scoreDetailVO = new ScoreDetailVO();
+            scoreDetailVO.setSubjectId(po.getSubjectId());
+            scoreDetailVO.setSubjectType(po.getSubjectType());
+            scoreDetailVO.setIsCorrect(po.getAnswerStatus());
+            list.add(scoreDetailVO);
+        });
+        return list;
+    }
+
+    @Override
+    public SubjectDetailVO getSubjectDetail(GetSubjectDetailReq req) {
+        SubjectDetailVO subjectDetailVO = new SubjectDetailVO();
+        Long subjectId = req.getSubjectId();
+        Integer subjectType = req.getSubjectType();
+        SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setSubjectId(subjectId);
+        subjectDTO.setSubjectType(subjectType);
+        SubjectDetailDTO subjectDetail = getSubjectDetail(subjectDTO);
+        List<SubjectOptionDTO> optionList = subjectDetail.getOptionList();
+        List<PracticeSubjectOptionVO> optionVOList = new LinkedList<>();
+        List<Integer> correctAnswer = new LinkedList<>();
+        if (CollectionUtils.isNotEmpty(optionList)) {
+            optionList.forEach(option -> {
+                PracticeSubjectOptionVO optionVO = new PracticeSubjectOptionVO();
+                optionVO.setOptionType(option.getOptionType());
+                optionVO.setOptionContent(option.getOptionContent());
+                optionVO.setIsCorrect(option.getIsCorrect());
+                optionVOList.add(optionVO);
+                if (option.getIsCorrect() == 1) {
+                    correctAnswer.add(option.getOptionType());
+                }
+            });
+        }
+        if (subjectType.equals(SubjectInfoTypeEnum.JUDGE.getCode())) {
+            Integer isCorrect = subjectDetail.getIsCorrect();
+            PracticeSubjectOptionVO correctOption = new PracticeSubjectOptionVO();
+            correctOption.setOptionType(1);
+            correctOption.setOptionContent("正确");
+            correctOption.setIsCorrect(isCorrect == 1 ? 1 : 0);
+            PracticeSubjectOptionVO errorOptionVO = new PracticeSubjectOptionVO();
+            errorOptionVO.setOptionType(2);
+            errorOptionVO.setOptionContent("错误");
+            errorOptionVO.setIsCorrect(isCorrect == 0 ? 1 : 0);
+            optionVOList.add(correctOption);
+            optionVOList.add(errorOptionVO);
+            correctAnswer.add(subjectDetail.getIsCorrect());
+        }
+        subjectDetailVO.setOptionList(optionVOList);
+        subjectDetailVO.setSubjectParse(subjectDetail.getSubjectParse());
+        subjectDetailVO.setSubjectName(subjectDetail.getSubjectName());
+        subjectDetailVO.setCorrectAnswer(correctAnswer);
+        //自己的答题答案
+        List<Integer> respondAnswer = new LinkedList<>();
+        PracticeDetailPO practiceDetailPO = practiceDetailDao.selectAnswer(req.getPracticeId(), subjectId);
+        String answerContent = practiceDetailPO.getAnswerContent();
+        if (StringUtils.isNotBlank(answerContent)) {
+            String[] split = answerContent.split(",");
+            for (String s : split) {
+                respondAnswer.add(Integer.valueOf(s));
+            }
+        }
+        subjectDetailVO.setRespondAnswer(respondAnswer);
+        List<SubjectMappingPO> subjectMappingPOList = subjectMappingDao.getLabelIdsBySubjectId(subjectId);
+        List<Long> labelIdList = new LinkedList<>();
+        subjectMappingPOList.forEach(subjectMappingPO -> {
+            labelIdList.add(subjectMappingPO.getLabelId());
+        });
+        List<String> labelNameList = subjectLabelDao.getLabelNameByIds(labelIdList);
+        subjectDetailVO.setLabelNames(labelNameList);
+        return subjectDetailVO;
+    }
+
 
 
     public SubjectDetailDTO getSubjectDetail(SubjectDTO dto) {

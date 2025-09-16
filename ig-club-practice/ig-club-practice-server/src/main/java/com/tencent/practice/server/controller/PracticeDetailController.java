@@ -4,8 +4,12 @@ package com.tencent.practice.server.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.tencent.practice.api.common.Result;
+import com.tencent.practice.api.req.GetScoreDetailReq;
+import com.tencent.practice.api.req.GetSubjectDetailReq;
 import com.tencent.practice.api.req.SubmitPracticeDetailReq;
 import com.tencent.practice.api.req.SubmitSubjectDetailReq;
+import com.tencent.practice.api.vo.ScoreDetailVO;
+import com.tencent.practice.api.vo.SubjectDetailVO;
 import com.tencent.practice.server.service.PracticeDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -77,5 +82,58 @@ public class PracticeDetailController {
             return Result.fail("提交练题情况异常！");
         }
     }
+
+    /**
+     * 答案解析-每题得分
+     */
+    @PostMapping(value = "/getScoreDetail")
+    public Result<List<ScoreDetailVO>> getScoreDetail(@RequestBody GetScoreDetailReq req) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("每题得分入参{}", JSON.toJSONString(req));
+            }
+            Preconditions.checkArgument(!Objects.isNull(req), "参数不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getPracticeId()), "练习id不能为空！");
+            List<ScoreDetailVO> list = practiceDetailService.getScoreDetail(req);
+            if (log.isInfoEnabled()) {
+                log.info("每题得分出参{}", JSON.toJSONString(list));
+            }
+            return Result.ok(list);
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常！错误原因{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("每题得分异常！错误原因{}", e.getMessage(), e);
+            return Result.fail("每题得分异常！");
+        }
+    }
+
+    /**
+     * 答案解析-答题详情
+     */
+    @PostMapping(value = "/getSubjectDetail")
+    public Result<SubjectDetailVO> getSubjectDetail(@RequestBody GetSubjectDetailReq req) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("答案详情入参{}", JSON.toJSONString(req));
+            }
+            Preconditions.checkArgument(!Objects.isNull(req), "参数不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getSubjectId()), "题目id不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getSubjectType()), "题目类型不能为空！");
+            SubjectDetailVO subjectDetailVO = practiceDetailService.getSubjectDetail(req);
+            if (log.isInfoEnabled()) {
+                log.info("答案详情出参{}", JSON.toJSONString(subjectDetailVO));
+            }
+            return Result.ok(subjectDetailVO);
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常！错误原因{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("答案详情异常！错误原因{}", e.getMessage(), e);
+            return Result.fail("答案详情异常！");
+        }
+    }
+
+
 
 }
