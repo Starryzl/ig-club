@@ -333,6 +333,15 @@ public class PracticeDetailServiceImpl implements PracticeDetailService {
         return list;
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean giveUp(Long practiceId) {
+        practiceDetailDao.deleteByPracticeId(practiceId);
+        practiceDao.deleteById(practiceId);
+        return true;
+    }
+
+
     private Map<Long, Integer> getSubjectLabelMap(List<PracticeDetailPO> practiceDetailPOList) {
         if (CollectionUtils.isEmpty(practiceDetailPOList)) {
             return Collections.emptyMap();

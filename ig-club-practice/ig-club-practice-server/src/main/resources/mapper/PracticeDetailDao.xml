@@ -80,6 +80,12 @@
         limit 5;
     </select>
 
+    <update id="deleteByPracticeId">
+        update practice_detail
+        set is_deleted = 1
+        where practice_id = #{practiceId}
+    </update>
+
 
 </mapper>
 

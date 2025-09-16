@@ -44,4 +44,9 @@ public interface PracticeDetailDao {
      * 获取排行榜情况
      */
     List<PracticeRankPO> getPracticeCount();
+
+    /**
+     * 删除练习详情
+     */
+    void deleteByPracticeId(Long practiceId);
 }

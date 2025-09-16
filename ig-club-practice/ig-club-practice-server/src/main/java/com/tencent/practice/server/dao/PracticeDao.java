@@ -19,4 +19,8 @@ public interface PracticeDao {
      */
     int update(PracticePO practicePO);
 
+    /**
+     * 删除练习
+     */
+    void deleteById(Long practiceId);
 }
