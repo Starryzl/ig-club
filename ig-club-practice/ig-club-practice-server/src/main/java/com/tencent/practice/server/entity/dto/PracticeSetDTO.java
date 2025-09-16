@@ -1,5 +1,6 @@
 package com.tencent.practice.server.entity.dto;
 
+import com.tencent.practice.api.common.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -38,5 +39,9 @@ public class PracticeSetDTO implements Serializable {
      */
     private String setName;
 
+    /**
+     * 分页信息
+     */
+    private PageInfo pageInfo;
 
 }

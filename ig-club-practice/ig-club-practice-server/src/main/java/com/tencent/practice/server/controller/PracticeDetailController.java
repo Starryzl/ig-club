@@ -3,12 +3,11 @@ package com.tencent.practice.server.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
+import com.tencent.practice.api.common.PageResult;
 import com.tencent.practice.api.common.Result;
 import com.tencent.practice.api.req.*;
-import com.tencent.practice.api.vo.RankVO;
-import com.tencent.practice.api.vo.ReportVO;
-import com.tencent.practice.api.vo.ScoreDetailVO;
-import com.tencent.practice.api.vo.SubjectDetailVO;
+import com.tencent.practice.api.vo.*;
+import com.tencent.practice.server.entity.dto.PracticeSetDTO;
 import com.tencent.practice.server.service.PracticeDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -191,6 +190,7 @@ public class PracticeDetailController {
             return Result.fail("放弃练习异常！");
         }
     }
+
 
 
 }

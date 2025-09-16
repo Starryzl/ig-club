@@ -1,6 +1,10 @@
 package com.tencent.practice.server.dao;
 
+import com.tencent.practice.server.entity.dto.PracticeSetDTO;
 import com.tencent.practice.server.entity.po.PracticeSetPO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface PracticeSetDao {
 
@@ -12,5 +16,18 @@ public interface PracticeSetDao {
     PracticeSetPO selectById(Long setId);
 
     void updateHeat(Long setId);
+
+    /**
+     * 获取模拟考卷列表数量
+     */
+    Integer getListCount(PracticeSetDTO dto);
+
+    /**
+     * 获取模拟考卷列表
+     */
+    List<PracticeSetPO> getSetList(@Param("dto") PracticeSetDTO dto,
+                                   @Param("limit") int limit,
+                                   @Param("offset") int offset);
+
 }
 

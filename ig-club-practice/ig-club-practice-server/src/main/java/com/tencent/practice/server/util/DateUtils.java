@@ -20,4 +20,21 @@ public class DateUtils {
         }
     }
 
+    /**
+     * 日期格式化
+     */
+    public static String format(Date date, String format) {
+        try {
+            if (date == null) {
+                return null;
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return sdf.format(date);
+        } catch (Exception e) {
+            log.error("日期格式化失败{}", e.getMessage(), e);
+        }
+        return null;
+    }
+
+
 }
