@@ -13,6 +13,8 @@ import com.tencent.subject.domain.service.SubjectInfoDomainService;
 import com.tencent.subject.infra.basic.entity.SubjectInfoEs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,10 @@ public class SubjectController {
 
     @Resource
     private SubjectInfoDomainService subjectinfoDomainService;
+
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
+
 
     /**
      * 新增题目
@@ -150,4 +156,14 @@ public class SubjectController {
             return Result.fail("获取题目贡献榜失败");
         }
     }
+
+    /**
+     * 测试mq发送
+     */
+    @PostMapping("/pushMessage")
+    public Result<Boolean> pushMessage(@Param("id") int id) {
+        rocketMQTemplate.convertAndSend("test-topic", "hello " + id);
+        return Result.ok(true);
+    }
+
 }
