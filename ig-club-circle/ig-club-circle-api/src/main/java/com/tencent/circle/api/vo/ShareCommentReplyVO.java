@@ -1,14 +1,17 @@
-package com.tencent.circle.api.req;
+package com.tencent.circle.api.vo;
 
+import com.tencent.circle.api.common.TreeNode;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class SaveShareCommentReplyReq implements Serializable {
+public class ShareCommentReplyVO extends TreeNode implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private Long id;
 
     /**
      * 原始动态ID
@@ -21,11 +24,6 @@ public class SaveShareCommentReplyReq implements Serializable {
     private Integer replyType;
 
     /**
-     * 评论目标id 评论则是动态ID 回复则是评论内容ID
-     */
-    private Long targetId;
-
-    /**
      * 内容
      */
     private String content;
@@ -34,5 +32,22 @@ public class SaveShareCommentReplyReq implements Serializable {
      * 图片内容
      */
     private List<String> picUrlList;
+
+    private String fromId;
+
+    private String toId;
+
+    private Long parentId;
+
+    @Override
+    public Long getNodeId() {
+        return id;
+    }
+
+    @Override
+    public Long getNodePId() {
+        return parentId;
+    }
+
 
 }

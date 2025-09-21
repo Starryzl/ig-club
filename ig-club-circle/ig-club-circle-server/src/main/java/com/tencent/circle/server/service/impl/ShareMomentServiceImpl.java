@@ -3,6 +3,7 @@ package com.tencent.circle.server.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,17 +13,24 @@ import com.tencent.circle.api.common.PageResult;
 import com.tencent.circle.api.enums.IsDeletedFlagEnum;
 import com.tencent.circle.api.req.*;
 import com.tencent.circle.api.vo.ShareMomentVO;
+import com.tencent.circle.server.dao.ShareCommentReplyMapper;
 import com.tencent.circle.server.dao.ShareMomentMapper;
+import com.tencent.circle.server.entity.po.ShareCommentReply;
 import com.tencent.circle.server.entity.po.ShareMoment;
 import com.tencent.circle.server.service.ShareMomentService;
 import com.tencent.circle.server.util.LoginUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, ShareMoment> implements ShareMomentService {
+
+    @Resource
+    private ShareCommentReplyMapper shareCommentReplyMapper;
 
     @Override
     public Boolean saveMoment(SaveMomentCircleReq req) {
@@ -74,10 +82,21 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean removeMoment(RemoveShareMomentReq req) {
+        ShareCommentReply updateEntity = new ShareCommentReply();
+        updateEntity.setIsDeleted(IsDeletedFlagEnum.DELETED.getCode());
+        LambdaUpdateWrapper<ShareCommentReply> update = Wrappers.<ShareCommentReply>lambdaUpdate().eq(ShareCommentReply::getMomentId, req.getId());
+        shareCommentReplyMapper.update(updateEntity, update);
         return super.update(Wrappers.<ShareMoment>lambdaUpdate().eq(ShareMoment::getId, req.getId())
                 .eq(ShareMoment::getIsDeleted, IsDeletedFlagEnum.UN_DELETED.getCode())
                 .set(ShareMoment::getIsDeleted, IsDeletedFlagEnum.DELETED.getCode()));
     }
+
+    @Override
+    public void incrReplyCount(Long id, int count) {
+        getBaseMapper().incrReplyCount(id, count);
+    }
+
 
 }
