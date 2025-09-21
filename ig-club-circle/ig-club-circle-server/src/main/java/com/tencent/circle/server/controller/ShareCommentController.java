@@ -7,6 +7,7 @@ import com.tencent.circle.api.enums.IsDeletedFlagEnum;
 import com.tencent.circle.api.req.*;
 import com.tencent.circle.api.vo.ShareCommentReplyVO;
 import com.tencent.circle.server.entity.po.ShareMoment;
+import com.tencent.circle.server.sensitive.WordFilter;
 import com.tencent.circle.server.service.ShareCommentReplyService;
 import com.tencent.circle.server.service.ShareMomentService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,13 @@ public class ShareCommentController {
 
     @Resource
     private ShareMomentService shareMomentService;
+
     @Resource
     private ShareCommentReplyService shareCommentReplyService;
+
+    @Resource
+    private WordFilter wordFilter;
+
 
     /**
      * 发布内容
@@ -41,6 +47,7 @@ public class ShareCommentController {
             ShareMoment moment = shareMomentService.getById(req.getMomentId());
             Preconditions.checkArgument((Objects.nonNull(moment) && moment.getIsDeleted() != IsDeletedFlagEnum.DELETED.getCode()), "非法内容！");
             Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "内容不能为空！");
+            wordFilter.check(req.getContent());
             Boolean result = shareCommentReplyService.saveComment(req);
             if (log.isInfoEnabled()) {
                 log.info("发布内容{}", JSON.toJSONString(result));

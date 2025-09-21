@@ -9,6 +9,7 @@ import com.tencent.circle.api.req.RemoveShareMomentReq;
 import com.tencent.circle.api.req.SaveMomentCircleReq;
 import com.tencent.circle.api.vo.ShareMomentVO;
 import com.tencent.circle.server.entity.po.ShareCircle;
+import com.tencent.circle.server.sensitive.WordFilter;
 import com.tencent.circle.server.service.ShareCircleService;
 import com.tencent.circle.server.service.ShareMomentService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,12 @@ public class ShareMomentController {
 
     @Resource
     private ShareMomentService shareMomentService;
+
     @Resource
     private ShareCircleService shareCircleService;
+
+    @Resource
+    private WordFilter wordFilter;
 
     /**
      * 发布内容
@@ -46,7 +51,8 @@ public class ShareMomentController {
             Preconditions.checkArgument(Objects.nonNull(req.getCircleId()), "圈子ID不能为空！");
             ShareCircle data = shareCircleService.getById(req.getCircleId());
             Preconditions.checkArgument((Objects.nonNull(data) && data.getParentId() != -1), "非法圈子ID！");
-            Preconditions.checkArgument((Objects.nonNull(req.getContent())), "社圈不能为空！");
+            Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "社圈不能为空！");
+            wordFilter.check(req.getContent());
             Boolean result = shareMomentService.saveMoment(req);
             if (log.isInfoEnabled()) {
                 log.info("发布内容{}", JSON.toJSONString(result));
