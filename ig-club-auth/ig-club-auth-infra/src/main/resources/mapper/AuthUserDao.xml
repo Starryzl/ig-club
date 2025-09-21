@@ -23,8 +23,22 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="AuthUserMap">
-        select
-          id, user_name, nick_name, email, phone, password, sex, avatar, status, introduce, ext_json, created_by, created_time, update_by, update_time, is_deleted
+        select id,
+               user_name,
+               nick_name,
+               email,
+               phone,
+               password,
+               sex,
+               avatar,
+               status,
+               introduce,
+               ext_json,
+               created_by,
+               created_time,
+               update_by,
+               update_time,
+               is_deleted
         from auth_user
         where id = #{id}
     </select>
@@ -142,13 +156,26 @@
         </where>
     </select>
 
+    <select id="listUserInfoByIds" resultType="com.tencent.auth.infra.basic.entity.AuthUser">
+        select
+        id, user_name, nick_name, email, phone, password, sex, avatar, status, introduce, ext_json, created_by,
+        created_time, update_by, update_time, is_deleted
+        from auth_user
+        where user_name in
+        <foreach collection="userNameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into auth_user(user_name, nick_name, email, phone, password, sex, avatar, status, introduce, ext_json, created_by, created_time, update_by, update_time, is_deleted)
-        values (#{userName}, #{nickName}, #{email}, #{phone}, #{password}, #{sex}, #{avatar}, #{status}, #{introduce}, #{extJson}, #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime}, #{isDeleted})
+        insert into auth_user(user_name, nick_name, email, phone, password, sex, avatar, status, introduce, ext_json,
+        created_by, created_time, update_by, update_time, is_deleted)
+        values (#{userName}, #{nickName}, #{email}, #{phone}, #{password}, #{sex}, #{avatar}, #{status}, #{introduce},
+        #{extJson}, #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime}, #{isDeleted})
     </insert>
 
 

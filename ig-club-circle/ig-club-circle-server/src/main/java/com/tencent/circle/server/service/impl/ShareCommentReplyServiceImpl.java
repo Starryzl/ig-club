@@ -12,8 +12,10 @@ import com.tencent.circle.api.req.*;
 import com.tencent.circle.api.vo.ShareCommentReplyVO;
 import com.tencent.circle.server.dao.ShareCommentReplyMapper;
 import com.tencent.circle.server.dao.ShareMomentMapper;
+import com.tencent.circle.server.entity.dto.UserInfo;
 import com.tencent.circle.server.entity.po.ShareCommentReply;
 import com.tencent.circle.server.entity.po.ShareMoment;
+import com.tencent.circle.server.rpc.UserRpc;
 import com.tencent.circle.server.service.ShareCommentReplyService;
 import com.tencent.circle.server.util.LoginUtil;
 import com.tencent.circle.server.util.TreeUtils;
@@ -29,6 +31,9 @@ public class ShareCommentReplyServiceImpl extends ServiceImpl<ShareCommentReplyM
 
     @Resource
     private ShareMomentMapper shareMomentMapper;
+
+    @Resource
+    private UserRpc userRpc;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -104,8 +109,12 @@ public class ShareCommentReplyServiceImpl extends ServiceImpl<ShareCommentReplyM
                         ShareCommentReply::getPicUrls,
                         ShareCommentReply::getCreatedBy,
                         ShareCommentReply::getToUser,
+                        ShareCommentReply::getCreatedTime,
                         ShareCommentReply::getParentId);
         List<ShareCommentReply> list = list(query);
+        List<String> userNameList = list.stream().map(ShareCommentReply::getCreatedBy).distinct().collect(Collectors.toList());
+        Map<String, UserInfo> userInfoMap = userRpc.batchGetUserInfo(userNameList);
+        UserInfo defaultUser = new UserInfo();
         List<ShareCommentReplyVO> voList = list.stream().map(item -> {
             ShareCommentReplyVO vo = new ShareCommentReplyVO();
             vo.setId(item.getId());
@@ -120,6 +129,10 @@ public class ShareCommentReplyServiceImpl extends ServiceImpl<ShareCommentReplyM
                 vo.setToId(item.getToUser());
             }
             vo.setParentId(item.getParentId());
+            UserInfo user = userInfoMap.getOrDefault(item.getCreatedBy(), defaultUser);
+            vo.setUserName(user.getNickName());
+            vo.setAvatar(user.getAvatar());
+            vo.setCreatedTime(item.getCreatedTime().getTime());
             return vo;
         }).collect(Collectors.toList());
         return TreeUtils.buildTree(voList);

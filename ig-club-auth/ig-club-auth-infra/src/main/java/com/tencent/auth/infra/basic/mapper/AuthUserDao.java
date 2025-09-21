@@ -79,5 +79,6 @@ public interface AuthUserDao {
 
     Integer updateByUserName(AuthUser authUser);
 
+    List<AuthUser> listUserInfoByIds(@Param("userNameList") List<String> userNameList);
 }
 

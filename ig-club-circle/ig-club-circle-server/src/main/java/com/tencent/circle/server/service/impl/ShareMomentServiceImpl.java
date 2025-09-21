@@ -15,8 +15,10 @@ import com.tencent.circle.api.req.*;
 import com.tencent.circle.api.vo.ShareMomentVO;
 import com.tencent.circle.server.dao.ShareCommentReplyMapper;
 import com.tencent.circle.server.dao.ShareMomentMapper;
+import com.tencent.circle.server.entity.dto.UserInfo;
 import com.tencent.circle.server.entity.po.ShareCommentReply;
 import com.tencent.circle.server.entity.po.ShareMoment;
+import com.tencent.circle.server.rpc.UserRpc;
 import com.tencent.circle.server.service.ShareMomentService;
 import com.tencent.circle.server.util.LoginUtil;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,9 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
 
     @Resource
     private ShareCommentReplyMapper shareCommentReplyMapper;
+
+    @Resource
+    private UserRpc userRpc;
 
     @Override
     public Boolean saveMoment(SaveMomentCircleReq req) {
@@ -61,6 +66,9 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
         Page<ShareMoment> pageRes = super.page(page, query);
         PageResult<ShareMomentVO> result = new PageResult<>();
         List<ShareMoment> records = pageRes.getRecords();
+        List<String> userNameList = records.stream().map(ShareMoment::getCreatedBy).distinct().collect(Collectors.toList());
+        Map<String, UserInfo> userInfoMap = userRpc.batchGetUserInfo(userNameList);
+        UserInfo defaultUser = new UserInfo();
         List<ShareMomentVO> list = records.stream().map(item -> {
             ShareMomentVO vo = new ShareMomentVO();
             vo.setId(item.getId());
@@ -72,6 +80,9 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
             }
             vo.setReplyCount(item.getReplyCount());
             vo.setCreatedTime(item.getCreatedTime().getTime());
+            UserInfo user = userInfoMap.getOrDefault(item.getCreatedBy(), defaultUser);
+            vo.setUserName(user.getNickName());
+            vo.setUserAvatar(user.getAvatar());
             return vo;
         }).collect(Collectors.toList());
         result.setRecords(list);

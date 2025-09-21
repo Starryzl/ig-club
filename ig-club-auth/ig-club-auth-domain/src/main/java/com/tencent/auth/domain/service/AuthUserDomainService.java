@@ -3,6 +3,8 @@ package com.tencent.auth.domain.service;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import com.tencent.auth.domain.entity.AuthUserBO;
 
+import java.util.List;
+
 /**
  * 用户领域service
  */
@@ -27,4 +29,6 @@ public interface AuthUserDomainService {
     SaTokenInfo doLogin(String validCode);
 
     AuthUserBO getUserInfo(AuthUserBO authUserBO);
+
+    List<AuthUserBO> listUserInfoByIds(List<String> ids);
 }

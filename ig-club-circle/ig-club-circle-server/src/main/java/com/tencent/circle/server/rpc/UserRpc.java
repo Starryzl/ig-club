@@ -1,5 +1,6 @@
 package com.tencent.circle.server.rpc;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tencent.auth.api.UserFeignService;
 import com.tencent.auth.entity.AuthUserDTO;
 import com.tencent.auth.entity.Result;
@@ -7,6 +8,7 @@ import com.tencent.circle.server.entity.dto.UserInfo;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.*;
 
 @Component
 public class UserRpc {
@@ -27,6 +29,25 @@ public class UserRpc {
         userInfo.setNickName(data.getNickName());
         userInfo.setAvatar(data.getAvatar());
         return userInfo;
+    }
+
+    public Map<String, UserInfo> batchGetUserInfo(List<String> userNameList) {
+        if (CollectionUtils.isEmpty(userNameList)) {
+            return Collections.emptyMap();
+        }
+        Result<List<AuthUserDTO>> listResult = userFeignService.listUserInfoByIds(userNameList);
+        if (Objects.isNull(listResult) || !listResult.getSuccess() || Objects.isNull(listResult.getData())) {
+            return Collections.emptyMap();
+        }
+        Map<String, UserInfo> result = new HashMap<>();
+        for (AuthUserDTO data : listResult.getData()) {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserName(data.getUserName());
+            userInfo.setNickName(data.getNickName());
+            userInfo.setAvatar(data.getAvatar());
+            result.put(userInfo.getUserName(), userInfo);
+        }
+        return result;
     }
 
 }

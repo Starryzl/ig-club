@@ -50,4 +50,6 @@ public interface AuthUserService {
     List<AuthUser> queryByCondition(AuthUser authUser);
 
     Integer updateByUserName(AuthUser authUser);
+
+    List<AuthUser> listUserInfoByIds(List<String> ids);
 }
