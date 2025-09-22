@@ -1,15 +1,20 @@
 package com.tencent.circle.server.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.base.Preconditions;
 import com.tencent.circle.api.common.Result;
 import com.tencent.circle.api.enums.IsDeletedFlagEnum;
 import com.tencent.circle.api.req.*;
 import com.tencent.circle.api.vo.ShareCommentReplyVO;
+import com.tencent.circle.server.entity.po.ShareCommentReply;
 import com.tencent.circle.server.entity.po.ShareMoment;
 import com.tencent.circle.server.sensitive.WordFilter;
 import com.tencent.circle.server.service.ShareCommentReplyService;
+import com.tencent.circle.server.service.ShareMessageService;
 import com.tencent.circle.server.service.ShareMomentService;
+import com.tencent.circle.server.util.LoginUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +36,9 @@ public class ShareCommentController {
     @Resource
     private WordFilter wordFilter;
 
+    @Resource
+    private ShareMessageService shareMessageService;
+
 
     /**
      * 发布内容
@@ -49,6 +57,16 @@ public class ShareCommentController {
             Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "内容不能为空！");
             wordFilter.check(req.getContent());
             Boolean result = shareCommentReplyService.saveComment(req);
+            if (req.getReplyType() == 1) {
+                shareMessageService.comment(LoginUtil.getLoginId(), moment.getCreatedBy(), moment.getId());
+            } else {
+                LambdaQueryWrapper<ShareCommentReply> query = Wrappers.<ShareCommentReply>lambdaQuery()
+                        .eq(ShareCommentReply::getId, req.getTargetId())
+                        .select(ShareCommentReply::getCreatedBy);
+                ShareCommentReply reply = shareCommentReplyService.getOne(query);
+                shareMessageService.reply(LoginUtil.getLoginId(), reply.getCreatedBy(), moment.getId());
+            }
+
             if (log.isInfoEnabled()) {
                 log.info("发布内容{}", JSON.toJSONString(result));
             }
