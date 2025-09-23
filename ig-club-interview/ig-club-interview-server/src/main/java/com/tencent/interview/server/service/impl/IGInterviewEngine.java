@@ -2,14 +2,17 @@ package com.tencent.interview.server.service.impl;
 
 import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import com.tencent.interview.api.enums.EngineEnum;
+import com.tencent.interview.api.req.InterviewSubmitReq;
 import com.tencent.interview.api.req.StartReq;
 import com.tencent.interview.api.vo.InterviewQuestionVO;
+import com.tencent.interview.api.vo.InterviewResultVO;
 import com.tencent.interview.api.vo.InterviewVO;
 import com.tencent.interview.server.dao.SubjectMapper;
 import com.tencent.interview.server.entity.po.SubjectCategory;
 import com.tencent.interview.server.entity.po.SubjectInfo;
 import com.tencent.interview.server.entity.po.SubjectLabel;
 import com.tencent.interview.server.service.InterviewEngine;
+import com.tencent.interview.server.util.EvaluateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -89,5 +92,26 @@ public class IGInterviewEngine implements InterviewEngine {
         vo.setQuestionList(views);
         return vo;
     }
+
+    @Override
+    public InterviewResultVO submit(InterviewSubmitReq req) {
+
+        List<InterviewSubmitReq.Submit> submits = req.getQuestionList();
+        double total = submits.stream().mapToDouble(InterviewSubmitReq.Submit::getUserScore).sum();
+        double avg = total / submits.size();
+        String avtTips = EvaluateUtils.avgEvaluate(avg);
+        String tips = submits.stream().map(item -> {
+            String keyWord = item.getLabelName();
+            String evaluate = EvaluateUtils.evaluate(item.getUserScore());
+            return String.format(evaluate, keyWord);
+        }).distinct().collect(Collectors.joining(";"));
+        InterviewResultVO vo = new InterviewResultVO();
+        vo.setAvgScore(avg);
+        vo.setTips(tips);
+        vo.setAvgTips(avtTips);
+        return vo;
+
+    }
+
 
 }

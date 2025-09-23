@@ -2,8 +2,10 @@ package com.tencent.interview.server.service.impl;
 
 import com.google.common.base.Preconditions;
 import com.tencent.interview.api.req.InterviewReq;
+import com.tencent.interview.api.req.InterviewSubmitReq;
 import com.tencent.interview.api.req.StartReq;
 import com.tencent.interview.api.vo.InterviewQuestionVO;
+import com.tencent.interview.api.vo.InterviewResultVO;
 import com.tencent.interview.api.vo.InterviewVO;
 import com.tencent.interview.server.dao.SubjectMapper;
 import com.tencent.interview.server.entity.po.SubjectLabel;
@@ -52,6 +54,12 @@ public class InterviewServiceImpl implements InterviewService, ApplicationContex
         return engine.start(req);
     }
 
+    @Override
+    public InterviewResultVO submit(InterviewSubmitReq req) {
+        InterviewEngine engine = engineMap.get(req.getEngine());
+        Preconditions.checkArgument(!Objects.isNull(engine), "引擎不能为空！");
+        return engine.submit(req);
+    }
 
     private List<String> buildKeyWords(String url) {
         String pdfText = PDFUtil.getPdfText(url);
