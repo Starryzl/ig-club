@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.tencent.auth.entity.Result;
 import com.tencent.interview.api.req.InterviewReq;
+import com.tencent.interview.api.req.StartReq;
+import com.tencent.interview.api.vo.InterviewQuestionVO;
 import com.tencent.interview.api.vo.InterviewVO;
 import com.tencent.interview.server.service.InterviewService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +46,27 @@ public class InterviewController {
             return Result.fail("分析简历异常！");
         }
     }
+    /**
+     * 开始面试
+     */
+    @PostMapping(value = "/start")
+    public Result<InterviewQuestionVO> start(@RequestBody StartReq req) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("开始面试入参{}", JSON.toJSON(req));
+            }
+            Preconditions.checkArgument(!Objects.isNull(req), "参数不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getEngine()), "引擎不能为空！");
+            Preconditions.checkArgument(!Objects.isNull(req.getQuestionList()), "关键字不能为空！");
+            return Result.ok(interviewService.start(req));
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常！错误原因{}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("开始面试异常！错误原因{}", e.getMessage(), e);
+            return Result.fail("开始面试异常！");
+        }
+    }
+
 
 }
