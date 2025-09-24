@@ -8,4 +8,5 @@ import lombok.Getter;
 @Getter
 public enum EngineEnum {
     IGLOCAL,
+    ALI_BL,
 }

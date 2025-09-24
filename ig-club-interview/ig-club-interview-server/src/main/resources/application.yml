@@ -49,6 +49,9 @@ spring:
         max-idle: 10
         # 连接池中的最小空闲连接
         min-idle: 0
+  mvc:
+    async:
+      request-timeout: 600000
 publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIb04SqefAbD8BfI85E2mkraSzvsBlFyngU5Bf/5ibOAPQ3MOA6u6Y6crNfo5yw5SXMgkiSevAubPaNCSw/5MikCAwEAAQ==
 logging:
   config: classpath:log4j2-spring.xml
